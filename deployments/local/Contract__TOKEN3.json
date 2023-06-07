@@ -1,7 +1,7 @@
 {
     "type": "Contract",
     "deploymentName": "TOKEN3",
-    "address": "0:3b047e09a01e9448df69f1762a41b2bd3afe084ef56de7fa247c8bd2836794f5",
+    "address": "0:dedbf5576602dc7a604e70c4c9177911a757cc1f9d49ee270ec266ad7ab4ee56",
     "contractName": "TokenRootUpgradeable",
     "abi": {
         "ABI version": 2,

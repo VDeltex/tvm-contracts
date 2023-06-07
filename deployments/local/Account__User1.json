@@ -1,12 +1,12 @@
 {
     "type": "Account",
-    "address": "0:33150b6d7632d92298e9a063cc4a3c53e285a169de524b0a0a73657898d566e9",
+    "address": "0:7c9af94fcce00febc9a906affa78d3f1d8733d23ee00a86975913b6f128b0c33",
     "deploymentName": "User1",
     "createAccountParams": {
         "type": 3,
         "value": "150000000000",
-        "publicKey": "a0539c664488147c8705ba4d224650390dacb4a50464f16f160d9cf46507f759"
+        "publicKey": "6a5bacace701e1497a9aa245181c3908b4f146f3ee6ff6d9918d0c0733935b7b"
     },
-    "publicKey": "a0539c664488147c8705ba4d224650390dacb4a50464f16f160d9cf46507f759",
+    "publicKey": "6a5bacace701e1497a9aa245181c3908b4f146f3ee6ff6d9918d0c0733935b7b",
     "signerId": "2"
 }

@@ -3,7 +3,7 @@ import {Token} from "./utils/wrappers/token";
 import {TokenWallet} from "./utils/wrappers/token_wallet";
 import {Contract, lockliftChai, toNano} from "locklift";
 import chai, {expect} from "chai";
-import {DeltexClusterAbi} from "../build/factorySource";
+import {DeltexClusterAbi, TokenRootUpgradeableAbi} from "../build/factorySource";
 
 const logger = require("mocha-logger");
 chai.use(lockliftChai);

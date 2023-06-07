@@ -1,7 +1,7 @@
 {
     "type": "Contract",
     "deploymentName": "DeltexCluster",
-    "address": "0:9e1d9f818d32d10fd8b1baeebf628c9e8cba694f31b0c8f98fba5098752ddfaf",
+    "address": "0:1956207d7af0e44402fa6443170a7f5a447034f33568f357c8f84d23bd1cc1b7",
     "contractName": "DeltexCluster",
     "abi": {
         "ABI version": 2,
