@@ -1,0 +1,6349 @@
+.version sol 0.62.0
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/DeltexCluster.tsol, 8
+GETGLOB 2
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+EQUAL
+THROWIFNOT 101
+.loc ../contracts/DeltexCluster.tsol, 10
+ACCEPT
+.loc ../contracts/DeltexCluster.tsol, 11
+SETGLOB 14
+.loc ../contracts/DeltexCluster.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgrade
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/DeltexCluster.tsol, 14
+LDREF
+ENDS
+.loc ../contracts/DeltexCluster.tsol, 0
+CALLREF {
+	CALL $upgrade_7916ae0d_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgrade_7916ae0d_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 11
+GETGLOB 14
+GETGLOB 9
+SDEQ
+THROWIFNOT 1100
+.loc ../contracts/DeltexCluster.tsol, 15
+GETGLOB 16
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+NEWC
+STU 32
+STREF
+STREF
+STU 16
+STSLICE
+STDICT
+STDICT
+ENDC
+.loc ../contracts/DeltexCluster.tsol, 25
+OVER
+SETCODE
+.loc ../contracts/DeltexCluster.tsol, 28
+SWAP
+CTOS
+DUP
+PUSHSLICE x8adb35
+SDEQ
+PUSHCONT {
+	PLDREFIDX 1
+	CTOS
+}
+IF
+PLDREF
+CTOS
+BLESS
+POP C3
+.loc ../contracts/DeltexCluster.tsol, 29
+CALLREF {
+	CALL $:onCodeUpgrade$
+}
+.loc ../contracts/DeltexCluster.tsol, 0
+
+.internal-alias :onCodeUpgrade, 2
+.internal :onCodeUpgrade
+DROP
+.loc ../contracts/DeltexCluster.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+COMMIT
+THROW 0
+
+.macro transferOwnership
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 17
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 32
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $transferOwnership_757963d7_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro transferOwnership_757963d7_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 11
+GETGLOB 14
+GETGLOB 9
+SDEQ
+THROWIFNOT 1100
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 21
+CALLREF {
+	CALL $_reserve_413ab4a8_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/base/DeltexClusterBase.tsol, 18
+OVER
+SETGLOB 14
+.loc ../contracts/base/DeltexClusterBase.tsol, 19
+FIRST
+PUSHSLICE xc00000000000000000000000007958349a
+NEWC
+STSLICE
+STU 32
+STSLICE
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro encodeSwapPayload
+DROP
+GETGLOB 6
+THROWIFNOT 76
+.loc ../contracts/base/DeltexClusterBase.tsol, 22
+LDU 16
+LDU 8
+LDU 8
+LDU 32
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $encodeSwapPayload_15a9c298_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2275575102
+	STUR 130
+	STREF
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro encodeSwapPayload_15a9c298_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 28
+REVERSE 4, 0
+NEWC
+STU 16
+STU 8
+STU 8
+ENDC
+SWAP
+NEWC
+STSLICECONST x00
+STU 32
+STREF
+ENDC
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro encodeJoinPayload
+DROP
+GETGLOB 6
+THROWIFNOT 76
+.loc ../contracts/base/DeltexClusterBase.tsol, 31
+LDU 16
+LDU 8
+LDU 32
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $encodeJoinPayload_b22c8462_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3657410546
+	STUR 130
+	STREF
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro encodeJoinPayload_b22c8462_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 32
+XCHG S2
+NEWC
+STU 16
+STU 8
+ENDC
+SWAP
+NEWC
+STSLICECONST x01
+STU 32
+STREF
+ENDC
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro decodeTokenTransfer
+DROP
+GETGLOB 6
+THROWIFNOT 76
+.loc ../contracts/base/DeltexClusterBase.tsol, 35
+LDREF
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $decodeTokenTransfer_fa957a1c_internal_macro$
+}
+PUSH S3
+PUSHCONT {
+	PUSH S5
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 98
+	STZEROES
+	REVERSE 3, 1
+	STSLICECONST x80731839
+	STU 8
+	STU 32
+	STREF
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	BLKDROP 3
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	decodeTokenTransfer_fa957a1c_internal
+.type	decodeTokenTransfer_fa957a1c_internal, @function
+CALL $decodeTokenTransfer_fa957a1c_internal_macro$
+
+.macro decodeTokenTransfer_fa957a1c_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 36
+CTOS
+LDU 8
+OVER
+GTINT 1
+THROWIF 73
+LDU 32
+LDREF
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro decodeSwapPayload
+DROP
+GETGLOB 6
+THROWIFNOT 76
+.loc ../contracts/base/DeltexClusterBase.tsol, 39
+LDREF
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $decodeSwapPayload_e728e200_internal_macro$
+}
+PUSH S3
+PUSHCONT {
+	PUSH S5
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 98
+	STZEROES
+	REVERSE 3, 1
+	STSLICECONST xa87f5fec
+	STU 16
+	STU 8
+	STU 8
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	BLKDROP 3
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	decodeSwapPayload_e728e200_internal
+.type	decodeSwapPayload_e728e200_internal, @function
+CALL $decodeSwapPayload_e728e200_internal_macro$
+
+.macro decodeSwapPayload_e728e200_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 40
+CTOS
+LDU 16
+LDU 8
+LDU 8
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro decodeJoinPayload
+DROP
+GETGLOB 6
+THROWIFNOT 76
+.loc ../contracts/base/DeltexClusterBase.tsol, 43
+LDREF
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $decodeJoinPayload_31e6beb6_internal_macro$
+}
+PUSH S2
+PUSHCONT {
+	PUSH S4
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 98
+	STZEROES
+	REVERSE 2, 1
+	STSLICECONST xed479010
+	STU 16
+	STU 8
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP2
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	decodeJoinPayload_31e6beb6_internal
+.type	decodeJoinPayload_31e6beb6_internal, @function
+CALL $decodeJoinPayload_31e6beb6_internal_macro$
+
+.macro decodeJoinPayload_31e6beb6_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 44
+CTOS
+LDU 16
+LDU 8
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro onAcceptTokensTransfer
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 47
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 128
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $onAcceptTokensTransfer_e63f2284_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro onAcceptTokensTransfer_e63f2284_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 21
+CALLREF {
+	CALL $_reserve_413ab4a8_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 22
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 55
+	PUSH S5
+	GETGLOB 16
+	PUSHINT 267
+	DICTGET
+	PUSHCONT {
+		PUSHREFSLICE {
+			.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+		}
+	}
+	IFNOT
+	GETGLOB 9
+	SDEQ
+	THROWIFNOT 1109
+	.loc ../contracts/base/DeltexClusterBase.tsol, 56
+	DEPTH
+	ADDCONST -2
+	PICK
+	PUSHINT 2000000000
+	GEQ
+	THROWIFNOT 1104
+	.loc ../contracts/base/DeltexClusterBase.tsol, 58
+	PUSH S3
+	GETGLOB 14
+	SDEQ
+	PUSHCONT {
+		BLKDROP 6
+	}
+	IFJMP
+	.loc ../contracts/base/DeltexClusterBase.tsol, 60
+	DUP
+	CALLREF {
+		CALL $decodeTokenTransfer_fa957a1c_internal_macro$
+	}
+	.loc ../contracts/base/DeltexClusterBase.tsol, 62
+	PUSH S2
+	PUSHCONT {
+		PUSH S2
+		EQINT 1
+		PUSHCONT {
+			.loc ../contracts/base/DeltexClusterBase.tsol, 77
+			DUP
+			CALLREF {
+				CALL $decodeJoinPayload_31e6beb6_internal_macro$
+			}
+			.loc ../contracts/base/DeltexClusterBase.tsol, 78
+			PUSH3 S9, S10, S8
+			PUSH S4
+			ROLL 4
+			CALLREF {
+				CALL $onJoinPool_8e2a7e79_internal_macro$
+			}
+			.loc ../contracts/base/DeltexClusterBase.tsol, 79
+			BLKPUSH 2, 10
+			ROLL 3
+			PUSH S5
+			PUSHSLICE xc0000000000000000000000001
+			NEWC
+			STSLICE
+			ROLLREV 5
+			NEWC
+			STSLICECONST x1dbd2914
+			STU 32
+			STU 16
+			STU 256
+			STSLICE
+			SWAP
+			NEWC
+			STU 256
+			STBREFR
+			STBREFR
+			ENDC
+			PUSHINT 0
+			SENDRAWMSG
+			.loc ../contracts/base/DeltexClusterBase.tsol, 80
+			PUSH S4
+			NEWC
+			STSLICECONST x42_
+			STSLICE
+			PUSHINT 111
+			STZEROES
+			ENDC
+			PUSHPOW2 7
+			SENDRAWMSG
+		}
+		PUSHCONT {
+			.loc ../contracts/base/DeltexClusterBase.tsol, 83
+			THROW 1110
+		}
+		IFELSE
+	}
+	PUSHCONT {
+		.loc ../contracts/base/DeltexClusterBase.tsol, 63
+		DUP
+		CALLREF {
+			CALL $decodeSwapPayload_e728e200_internal_macro$
+		}
+		.loc ../contracts/base/DeltexClusterBase.tsol, 64
+		PUSH3 S10, S11, S2
+		BLKSWAP 2, 3
+		PUSH S12
+		TUPLE 4
+		CALLREF {
+			CALL $onSwap_1939e152_internal_macro$
+		}
+		.loc ../contracts/base/DeltexClusterBase.tsol, 65
+		PUSHREF {
+		}
+		.loc ../contracts/base/DeltexClusterBase.tsol, 66
+		PUSH3 S1, S2, S12
+		PUSH S14
+		ROLL 7
+		PUSH S9
+		PUSHSLICE xc0000000000000000000000001
+		NEWC
+		STSLICE
+		ROLLREV 6
+		NEWC
+		STSLICECONST x2c26654e
+		STU 32
+		STU 16
+		STU 256
+		STSLICE
+		ROTREV
+		NEWC
+		STU 256
+		STSLICE
+		STBREFR
+		STBREFR
+		ENDC
+		PUSHINT 0
+		SENDRAWMSG
+		.loc ../contracts/base/DeltexClusterBase.tsol, 67
+		FALSE
+		PUSH S8
+		PUSHINT 100000000
+		PUSH S12
+		ROLL 6
+		UFITS 128
+		ROLL 6
+		GETGLOB 16
+		PUSHINT 267
+		DICTGET
+		PUSHCONT {
+			PUSHREFSLICE {
+				.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+			}
+		}
+		IFNOT
+		NEWC
+		STSLICECONST x62_
+		STSLICE
+		PUSHINT 1
+		STUR 111
+		ROLLREV 6
+		NEWC
+		STSLICECONST x73e22143
+		STU 128
+		STSLICE
+		STU 128
+		ROLLREV 3
+		NEWC
+		STSLICE
+		STI 1
+		STREF
+		STBREFR
+		STBREFR
+		ENDC
+		PUSHPOW2 7
+		SENDRAWMSG
+	}
+	IFELSE
+	.loc ../contracts/base/DeltexClusterBase.tsol, 0
+	BLKDROP 9
+	.loc ../contracts/base/DeltexClusterBase.tsol, 47
+}
+CALLX
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro calcExpectedSwap
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 87
+LDU 16
+LDU 8
+LDU 8
+LDU 256
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $calcExpectedSwap_88a33ba6_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3243524761
+	STUR 130
+	STU 256
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	calcExpectedSwap_88a33ba6_internal
+.type	calcExpectedSwap_88a33ba6_internal, @function
+CALL $calcExpectedSwap_88a33ba6_internal_macro$
+
+.macro calcExpectedSwap_88a33ba6_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 88
+ROLL 3
+GETGLOB 15
+PUSHINT 16
+DICTUGET
+IFREFELSEREF
+{
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDMSGADDR
+	LDU 256
+	ENDS
+	TRIPLE
+}
+{
+	PUSHINT 0
+	NEWDICT
+	PAIR
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	TRIPLE
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 90
+ROLL 3
+OVER
+INDEX2 0, 1
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDMSGADDR
+	LDU 8
+	LDU 64
+	LDU 128
+	ENDS
+	TUPLE 4
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 91
+ROLL 3
+ROT
+INDEX2 0, 1
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDMSGADDR
+	LDU 8
+	LDU 64
+	LDU 128
+	ENDS
+	TUPLE 4
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 93
+ROT
+CALLREF {
+	CALL $_subtractSwapFeeAmount_2d4f85f9_internal_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 94
+PUSH S2
+INDEX 3
+PUSH S3
+SECOND
+CALLREF {
+	CALL $_upscale_c04b4444_internal_macro$
+}
+PUSH S3
+THIRD
+PUSH S3
+INDEX 3
+PUSH S4
+SECOND
+CALLREF {
+	CALL $_upscale_c04b4444_internal_macro$
+}
+PUSH S4
+THIRD
+ROLL 4
+ROLL 6
+SECOND
+CALLREF {
+	CALL $_upscale_c04b4444_internal_macro$
+}
+CALLREF {
+	CALL $WeightedMath_no_obj__calcOutGivenIn_5ce3dd58_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 102
+SWAP
+SECOND
+CALLREF {
+	CALL $_downscaleDown_9912315d_internal_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.globl	onSwap_1939e152_internal
+.type	onSwap_1939e152_internal, @function
+CALL $onSwap_1939e152_internal_macro$
+
+.macro onSwap_1939e152_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 105
+PUSHINT 0
+.loc ../contracts/base/DeltexClusterBase.tsol, 106
+OVER
+FIRST
+GETGLOB 15
+PUSHINT 16
+DICTUGET
+IFREFELSEREF
+{
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDMSGADDR
+	LDU 256
+	ENDS
+	TRIPLE
+}
+{
+	PUSHINT 0
+	NEWDICT
+	PAIR
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	TRIPLE
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 108
+DUP
+INDEX2 0, 0
+GTINT 1
+THROWIFNOT 106
+.loc ../contracts/base/DeltexClusterBase.tsol, 109
+PUSH S2
+SECOND
+OVER
+INDEX2 0, 0
+LESS
+PUSH S3
+THIRD
+PUSH S2
+INDEX2 0, 0
+LESS
+AND
+THROWIFNOT 106
+.loc ../contracts/base/DeltexClusterBase.tsol, 111
+PUSH S2
+SECOND
+OVER
+INDEX2 0, 1
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDMSGADDR
+	LDU 8
+	LDU 64
+	LDU 128
+	ENDS
+	TUPLE 4
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 112
+PUSH S3
+THIRD
+PUSH S2
+INDEX2 0, 1
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDMSGADDR
+	LDU 8
+	LDU 64
+	LDU 128
+	ENDS
+	TUPLE 4
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 114
+ROLL 5
+PUSH S2
+FIRST
+SDEQ
+THROWIFNOT 106
+.loc ../contracts/base/DeltexClusterBase.tsol, 116
+PUSH S5
+CALLREF {
+	CALL $_subtractSwapFeeAmount_2d4f85f9_internal_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 117
+PUSH S2
+INDEX 3
+PUSH S3
+SECOND
+CALLREF {
+	CALL $_upscale_c04b4444_internal_macro$
+}
+PUSH S3
+THIRD
+PUSH S3
+INDEX 3
+PUSH S4
+SECOND
+CALLREF {
+	CALL $_upscale_c04b4444_internal_macro$
+}
+PUSH S4
+THIRD
+ROLL 4
+PUSH S6
+SECOND
+CALLREF {
+	CALL $_upscale_c04b4444_internal_macro$
+}
+CALLREF {
+	CALL $WeightedMath_no_obj__calcOutGivenIn_5ce3dd58_macro$
+}
+POP S4
+.loc ../contracts/base/DeltexClusterBase.tsol, 125
+PUSH2 S3, S0
+SECOND
+CALLREF {
+	CALL $_downscaleDown_9912315d_internal_macro$
+}
+POP S4
+.loc ../contracts/base/DeltexClusterBase.tsol, 126
+ROLL 5
+UFITS 128
+PUSH2 S2, S2
+INDEX 3
+ROT
+ADD
+UFITS 128
+SETINDEX 3
+POP S2
+.loc ../contracts/base/DeltexClusterBase.tsol, 127
+PUSH S3
+UFITS 128
+XCPU S1, S0
+INDEX 3
+ROT
+SUB
+UFITS 128
+SETINDEX 3
+.loc ../contracts/base/DeltexClusterBase.tsol, 129
+XCPU S1, S2
+PUSH S3
+FIRST
+UNPAIR
+PUSH S7
+SECOND
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 4
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STU 8
+	STU 64
+	STU 128
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETINDEX 0
+POP S2
+.loc ../contracts/base/DeltexClusterBase.tsol, 130
+PUSH3 S0, S1, S1
+FIRST
+UNPAIR
+PUSH S7
+THIRD
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 4
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STU 8
+	STU 64
+	STU 128
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETINDEX 0
+POP S2
+.loc ../contracts/base/DeltexClusterBase.tsol, 131
+SWAP
+GETGLOB 15
+ROLL 4
+FIRST
+XCHG S2
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	STSLICE
+	STU 256
+}
+ROTREV
+PUSHINT 16
+DICTUSETB
+SETGLOB 15
+.loc ../contracts/base/DeltexClusterBase.tsol, 133
+FIRST
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.globl	onJoinPool_8e2a7e79_internal
+.type	onJoinPool_8e2a7e79_internal, @function
+CALL $onJoinPool_8e2a7e79_internal_macro$
+
+.macro onJoinPool_8e2a7e79_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 147
+OVER
+GETGLOB 15
+PUSHINT 16
+DICTUGET
+IFREFELSEREF
+{
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDMSGADDR
+	LDU 256
+	ENDS
+	TRIPLE
+}
+{
+	PUSHINT 0
+	NEWDICT
+	PAIR
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	TRIPLE
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 148
+DUP2
+INDEX2 0, 1
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDMSGADDR
+	LDU 8
+	LDU 64
+	LDU 128
+	ENDS
+	TUPLE 4
+}
+FIRST
+ROLL 5
+SDEQ
+THROWIFNOT 106
+.loc ../contracts/base/DeltexClusterBase.tsol, 150
+DUP
+INDEX2 0, 0
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSH S3
+PUSHCONT {
+	BLKPUSH 2, 2
+	INC
+	XCHG S3
+	ROT
+	PUSHINT 32
+	DICTUSETB
+}
+REPEAT
+BLKDROP2 2, 1
+PAIR
+.loc ../contracts/base/DeltexClusterBase.tsol, 151
+ROLL 5
+SWAP
+UNPAIR
+ROLL 4
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+NEWC
+STU 256
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+.loc ../contracts/base/DeltexClusterBase.tsol, 153
+OVER
+FIRST
+CALLREF {
+	CALL $_getFlatTokenData_66f4282c_internal_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 159
+PUSHINT 0
+.loc ../contracts/base/DeltexClusterBase.tsol, 160
+PUSH S5
+THIRD
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 174
+	BLKPUSH 4, 4
+	PUSH S9
+	THIRD
+	CALLREF {
+		CALL $_joinExactTokensInForDPTOut_edf84657_internal_macro$
+	}
+	NIP
+	.loc ../contracts/base/DeltexClusterBase.tsol, 182
+	PUSH2 S7, S5
+	SECOND
+	PUSH S2
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 161
+	PUSH3 S4, S1, S2
+	CALLREF {
+		CALL $_onInitializePool_bd35eb5b_internal_macro$
+	}
+	NIP
+	.loc ../contracts/base/DeltexClusterBase.tsol, 170
+	DUP
+	CALLREF {
+		CALL $_getMinimumBpt_6f523ec1_internal_macro$
+	}
+	GEQ
+	THROWIFNOT 204
+	.loc ../contracts/base/DeltexClusterBase.tsol, 171
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSH S6
+	SECOND
+	CALLREF {
+		CALL $_getMinimumBpt_6f523ec1_internal_macro$
+	}
+	CALLREF {
+		CALL $_mintPoolTokens_e1a322f8_internal_macro$
+	}
+	.loc ../contracts/base/DeltexClusterBase.tsol, 172
+	PUSH2 S7, S5
+	SECOND
+	PUSH S2
+	CALLREF {
+		CALL $_getMinimumBpt_6f523ec1_internal_macro$
+	}
+	SUB
+	UFITS 256
+}
+IFELSE
+CALLREF {
+	CALL $_mintPoolTokens_e1a322f8_internal_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 185
+PUSH3 S0, S5, S5
+THIRD
+ROT
+ADD
+SETINDEX 2
+POP S6
+.loc ../contracts/base/DeltexClusterBase.tsol, 186
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S6
+	INDEX2 0, 0
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 187
+	PUSH2 S0, S5
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	UFITS 128
+	PUSH2 S7, S7
+	FIRST
+	UNPAIR
+	PUXC S4, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	CALLREF {
+		LDMSGADDR
+		LDU 8
+		LDU 64
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+	DUP
+	INDEX 3
+	ROLL 6
+	ADD
+	UFITS 128
+	SETINDEX 3
+	CALLREF {
+		UNTUPLE 4
+		REVERSE 4, 0
+		NEWC
+		STSLICE
+		STU 8
+		STU 64
+		STU 128
+	}
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	SETINDEX 0
+	POP S7
+	.loc ../contracts/base/DeltexClusterBase.tsol, 186
+	INC
+	.loc ../contracts/base/DeltexClusterBase.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/base/DeltexClusterBase.tsol, 190
+ROLL 5
+GETGLOB 15
+ROLL 7
+XCHG S2
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	STSLICE
+	STU 256
+}
+ROTREV
+PUSHINT 16
+DICTUSETB
+SETGLOB 15
+.loc ../contracts/base/DeltexClusterBase.tsol, 191
+BLKDROP2 5, 1
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.globl	_joinExactTokensInForDPTOut_edf84657_internal
+.type	_joinExactTokensInForDPTOut_edf84657_internal, @function
+CALL $_joinExactTokensInForDPTOut_edf84657_internal_macro$
+
+.macro _joinExactTokensInForDPTOut_edf84657_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 201
+PUSH S4
+ROT
+CALLREF {
+	CALL $_upscaleArray_b1f0fdf6_internal_macro$
+}
+POP S4
+.loc ../contracts/base/DeltexClusterBase.tsol, 202
+ROLL 3
+SWAP
+CALLREF {
+	CALL $getSwapFeePercentage_55c67628_internal_macro$
+}
+CALLREF {
+	CALL $WeightedMath_no_obj__calcDptOutGivenExactTokensIn_f9b9f547_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.globl	_onInitializePool_bd35eb5b_internal
+.type	_onInitializePool_bd35eb5b_internal, @function
+CALL $_onInitializePool_bd35eb5b_internal_macro$
+
+.macro _onInitializePool_bd35eb5b_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 217
+PUSH S2
+ROT
+CALLREF {
+	CALL $_upscaleArray_b1f0fdf6_internal_macro$
+}
+POP S2
+.loc ../contracts/base/DeltexClusterBase.tsol, 218
+OVER
+CALLREF {
+	CALL $WeightedMath_no_obj__calculateInvariant_350e278a_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 221
+SWAP
+FIRST
+MUL
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.globl	_mintPoolTokens_e1a322f8_internal
+.type	_mintPoolTokens_e1a322f8_internal, @function
+CALL $_mintPoolTokens_e1a322f8_internal_macro$
+
+.macro _mintPoolTokens_e1a322f8_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 226
+PUSHREF {
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 227
+FALSE
+PUSH S4
+PUSHINT 100000000
+ROLL 6
+ROLL 5
+UFITS 128
+ROLL 6
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 2868722788230934574387753789225109188247553
+STUR 143
+ROLLREV 6
+NEWC
+STSLICECONST x20bfb3b8
+STU 128
+STSLICE
+STU 128
+ROLLREV 3
+NEWC
+STSLICE
+STI 1
+STREF
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.macro receiveTokenWalletAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 230
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $receiveTokenWalletAddress_9b3a57ad_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro receiveTokenWalletAddress_9b3a57ad_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 231
+GETGLOB 9
+GETGLOB 16
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 232
+	DUP
+	GETGLOB 9
+	GETGLOB 16
+	PUSHINT 267
+	DICTSET
+	SETGLOB 16
+	.loc ../contracts/base/DeltexClusterBase.tsol, 0
+}
+IF
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+DROP
+
+.macro initializePool
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 237
+LDU 16
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $initializePool_f0178268_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	initializePool_f0178268_internal
+.type	initializePool_f0178268_internal, @function
+CALL $initializePool_f0178268_internal_macro$
+
+.macro initializePool_f0178268_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 11
+GETGLOB 14
+GETGLOB 9
+SDEQ
+THROWIFNOT 1100
+.loc ../contracts/base/DeltexClusterBase.tsol, 238
+OVER
+GETGLOB 15
+PUSHINT 16
+DICTUGET
+IFREFELSEREF
+{
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDMSGADDR
+	LDU 256
+	ENDS
+	TRIPLE
+}
+{
+	PUSHINT 0
+	NEWDICT
+	PAIR
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	TRIPLE
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 240
+DUP
+FIRST
+CALLREF {
+	CALL $_getFlatTokenData_66f4282c_internal_macro$
+}
+BLKDROP2 1, 2
+.loc ../contracts/base/DeltexClusterBase.tsol, 247
+PUSH S3
+XCHG S2
+CALLREF {
+	CALL $_onInitializePool_bd35eb5b_internal_macro$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 253
+XCPU S1, S0
+THIRD
+ROT
+ADD
+SETINDEX 2
+.loc ../contracts/base/DeltexClusterBase.tsol, 254
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S1
+	INDEX2 0, 0
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 255
+	PUSH2 S0, S2
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	UFITS 128
+	PUSH2 S2, S2
+	FIRST
+	UNPAIR
+	PUXC S4, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	CALLREF {
+		LDMSGADDR
+		LDU 8
+		LDU 64
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+	DUP
+	INDEX 3
+	ROLL 6
+	ADD
+	UFITS 128
+	SETINDEX 3
+	CALLREF {
+		UNTUPLE 4
+		REVERSE 4, 0
+		NEWC
+		STSLICE
+		STU 8
+		STU 64
+		STU 128
+	}
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	SETINDEX 0
+	POP S2
+	.loc ../contracts/base/DeltexClusterBase.tsol, 254
+	INC
+	.loc ../contracts/base/DeltexClusterBase.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/base/DeltexClusterBase.tsol, 258
+GETGLOB 15
+SWAP
+XCHG S2, S3
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	STSLICE
+	STU 256
+}
+ROTREV
+PUSHINT 16
+DICTUSETB
+SETGLOB 15
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+DROP
+
+.macro createPool
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/base/DeltexClusterBase.tsol, 261
+OVER
+PUSHCONT {
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 32
+	LDREF
+	ENDS
+	CTOS
+}
+PUSHCONT {
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 32
+	LDDICT
+	ROTREV
+	PAIR
+	SWAP
+	LDU 32
+}
+IFELSE
+LDMSGADDR
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+CALLREF {
+	CALL $createPool_0fc968b0_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro createPool_0fc968b0_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 21
+CALLREF {
+	CALL $_reserve_413ab4a8_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 11
+GETGLOB 14
+GETGLOB 9
+SDEQ
+THROWIFNOT 1100
+.loc ../contracts/base/DeltexClusterBase.tsol, 267
+DEPTH
+ADDCONST -2
+PICK
+PUSH S4
+FIRST
+PUSHINT 500000000
+MUL
+PUSHINT 1000000000
+ADD
+GEQ
+THROWIFNOT 1104
+.loc ../contracts/base/DeltexClusterBase.tsol, 268
+GETGLOB 13
+PUSHINT 500
+LESS
+THROWIFNOT 1111
+.loc ../contracts/base/DeltexClusterBase.tsol, 270
+PUSHINT 0
+DUP
+.loc ../contracts/base/DeltexClusterBase.tsol, 271
+PUSHCONT {
+	PUSH2 S0, S4
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 272
+	PUSH2 S0, S4
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 64
+	PUSH S2
+	ADD
+	UFITS 64
+	POP S2
+	.loc ../contracts/base/DeltexClusterBase.tsol, 271
+	INC
+	.loc ../contracts/base/DeltexClusterBase.tsol, 0
+}
+WHILE
+DROP2
+.loc ../contracts/base/DeltexClusterBase.tsol, 278
+PUSH S3
+FIRST
+PUSHREFSLICE
+.compute $default_tuple_builder_t_address_t_uint8_t_uint64_t_uint128$
+PUSHINT 0
+NEWDICT
+PUSH S3
+PUSHCONT {
+	BLKPUSH 2, 2
+	INC
+	XCHG S3
+	ROT
+	PUSHINT 32
+	DICTUSET
+}
+REPEAT
+BLKDROP2 2, 1
+PAIR
+GETGLOB 13
+CALLREF {
+	CALL $_createDptToken_44a79cfa_internal_macro$
+}
+PUSHINT 0
+TRIPLE
+.loc ../contracts/base/DeltexClusterBase.tsol, 283
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S5
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterBase.tsol, 284
+	PUSH2 S0, S5
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PUSH2 S1, S4
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 8
+	PUSH2 S2, S6
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 64
+	PUSHINT 0
+	TUPLE 4
+	PUSH2 S2, S2
+	FIRST
+	UNPAIR
+	PUXC S4, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	ROLL 4
+	CALLREF {
+		UNTUPLE 4
+		REVERSE 4, 0
+		NEWC
+		STSLICE
+		STU 8
+		STU 64
+		STU 128
+	}
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	SETINDEX 0
+	POP S2
+	.loc ../contracts/base/DeltexClusterBase.tsol, 291
+	GETGLOB 16
+	PUSH2 S1, S6
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	SWAP
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	ROTREV
+	PUSHINT 267
+	DICTSET
+	SETGLOB 16
+	.loc ../contracts/base/DeltexClusterBase.tsol, 292
+	PUSHINT 250000000
+	MYADDR
+	PUSH2 S2, S7
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 2868722788230934574387753789225109188247553
+	STUR 143
+	ROTREV
+	PUSHSLICE x31edd4c750bfca9f
+	NEWC
+	STSLICE
+	STSLICE
+	STU 128
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+	.loc ../contracts/base/DeltexClusterBase.tsol, 283
+	INC
+	.loc ../contracts/base/DeltexClusterBase.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/base/DeltexClusterBase.tsol, 297
+GETGLOB 13
+GETGLOB 15
+PUSH S2
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	STSLICE
+	STU 256
+}
+ROTREV
+PUSHINT 16
+DICTUSETB
+SETGLOB 15
+.loc ../contracts/base/DeltexClusterBase.tsol, 298
+GETGLOB 13
+INC
+UFITS 16
+SETGLOB 13
+.loc ../contracts/base/DeltexClusterBase.tsol, 300
+SWAP
+FIRST
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROTREV
+NEWC
+STSLICECONST x7241563d
+STU 32
+SWAP
+UNTRIPLE
+REVERSE 4, 0
+SWAP
+UNPAIR
+XCHG S2
+STU 32
+STDICT
+STSLICE
+STU 256
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+BLKDROP 3
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.globl	_createDptToken_44a79cfa_internal
+.type	_createDptToken_44a79cfa_internal, @function
+CALL $_createDptToken_44a79cfa_internal_macro$
+
+.macro _createDptToken_44a79cfa_internal_macro
+.loc ../contracts/base/DeltexClusterBase.tsol, 304
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSHINT 64
+DICTUSETB
+MYADDR
+PUSHINT 7
+ROT
+PUSHINT 64
+DICTUSET
+OVER
+NEWC
+STU 256
+PUSHINT 6
+ROT
+PUSHINT 64
+DICTUSETB
+TUPLE 0
+NEWC
+PUSHSLICE x44656c74657820506f6f6c20546f6b656e2023
+CALLREF {
+	CALL $storeStringInBuilders_macro$
+}
+PUSH S3
+PUSHINT 0
+BLKPUSH 2, 0
+CALLREF {
+	CALL $convertIntToDecStr_macro$
+}
+CALLREF {
+	CALL $assembleList_macro$
+}
+PUSHINT 1
+ROT
+PUSHINT 64
+DICTUSETREF
+TUPLE 0
+NEWC
+PUSHSLICE x44505423
+CALLREF {
+	CALL $storeStringInBuilders_macro$
+}
+ROLL 3
+PUSHINT 0
+BLKPUSH 2, 0
+CALLREF {
+	CALL $convertIntToDecStr_macro$
+}
+CALLREF {
+	CALL $assembleList_macro$
+}
+PUSHINT 2
+ROT
+PUSHINT 64
+DICTUSETREF
+NEWC
+STSLICECONST x12
+PUSHINT 3
+ROT
+PUSHINT 64
+DICTUSETB
+MYADDR
+PUSHINT 4
+ROT
+PUSHINT 64
+DICTUSET
+GETGLOB 12
+PUSHINT 5
+ROT
+PUSHINT 64
+DICTUSETREF
+NEWC
+STDICT
+ENDC
+GETGLOB 11
+NEWC
+STSLICECONST x2_
+STOPTREF
+STOPTREF
+STZERO
+ENDC
+.loc ../contracts/base/DeltexClusterBase.tsol, 318
+GETGLOB 9
+FALSE
+BLKPUSH 4, 0
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+ROLL 7
+DUP
+HASHCU
+NEWC
+STSLICECONST x801_
+STU 256
+ENDC
+CTOS
+ROLLREV 8
+PUSH S8
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 3030982065060147937779331799513237188247555
+STUR 143
+OVER
+CALLREF {
+	CTOS
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 5
+		NIP
+	}
+	IF
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 2
+		NIP
+	}
+	IF
+	LDOPTREF
+	LDOPTREF
+	LDDICT
+	ENDS
+	BLKDROP 3
+}
+STREF
+STSLICECONST 1
+ROLLREV 7
+NEWC
+STSLICECONST x0a23e69c
+STSLICE
+STU 128
+STU 128
+STI 1
+STI 1
+STI 1
+SWAP
+NEWC
+STSLICE
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/base/DeltexClusterBase.tsol, 0
+
+.globl	_reserve_413ab4a8_internal
+.type	_reserve_413ab4a8_internal, @function
+CALL $_reserve_413ab4a8_internal_macro$
+
+.macro _reserve_413ab4a8_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 16
+GETPARAM 7
+FIRST
+DEPTH
+ADDCONST -2
+PICK
+SUB
+UFITS 128
+PUSHINT 1000000000
+MAX
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.globl	_subtractSwapFeeAmount_2d4f85f9_internal
+.type	_subtractSwapFeeAmount_2d4f85f9_internal, @function
+CALL $_subtractSwapFeeAmount_2d4f85f9_internal_macro$
+
+.macro _subtractSwapFeeAmount_2d4f85f9_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 30
+CALLREF {
+	CALL $getSwapFeePercentage_55c67628_internal_macro$
+}
+CALLREF {
+	CALL $FixedPoint_with_obj_mulUp_f3e4f87c_macro$
+}
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 31
+CALLREF {
+	CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+}
+NIP
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.globl	_getMinimumBpt_6f523ec1_internal
+.type	_getMinimumBpt_6f523ec1_internal, @function
+CALL $_getMinimumBpt_6f523ec1_internal_macro$
+
+.macro _getMinimumBpt_6f523ec1_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 35
+PUSHINT 1000000
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.macro getSwapFeePercentage
+DROP
+GETGLOB 6
+THROWIFNOT 76
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 42
+ENDS
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+CALLREF {
+	CALL $getSwapFeePercentage_55c67628_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3711746209
+	STUR 130
+	STU 256
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	getSwapFeePercentage_55c67628_internal
+.type	getSwapFeePercentage_55c67628_internal, @function
+CALL $getSwapFeePercentage_55c67628_internal_macro$
+
+.macro getSwapFeePercentage_55c67628_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 43
+PUSHINT 3000000000000000
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.globl	_getFlatTokenData_66f4282c_internal
+.type	_getFlatTokenData_66f4282c_internal, @function
+CALL $_getFlatTokenData_66f4282c_internal_macro$
+
+.macro _getFlatTokenData_66f4282c_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 46
+PUSHINT 0
+NEWDICT
+PAIR
+BLKPUSH 2, 0
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 47
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S4
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 48
+	PUSH3 S3, S0, S4
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	CALLREF {
+		LDMSGADDR
+		LDU 8
+		LDU 64
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+	INDEX 3
+	NEWC
+	STU 256
+	SWAP
+	UNPAIR
+	OVER
+	INC
+	ROLLREV 3
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S4
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 49
+	PUSH3 S2, S0, S4
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	CALLREF {
+		LDMSGADDR
+		LDU 8
+		LDU 64
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+	THIRD
+	NEWC
+	STU 64
+	SWAP
+	UNPAIR
+	OVER
+	INC
+	ROLLREV 3
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S3
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 50
+	DUP2
+	PUSH S6
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	CALLREF {
+		LDMSGADDR
+		LDU 8
+		LDU 64
+		LDU 128
+		ENDS
+		TUPLE 4
+	}
+	SECOND
+	NEWC
+	STU 8
+	SWAP
+	UNPAIR
+	OVER
+	INC
+	ROLLREV 3
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S2
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 47
+	INC
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+}
+WHILE
+DROP
+BLKDROP2 1, 3
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.globl	_upscale_c04b4444_internal
+.type	_upscale_c04b4444_internal, @function
+CALL $_upscale_c04b4444_internal_macro$
+
+.macro _upscale_c04b4444_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 63
+SWAP
+PUSHINT 10
+ROT
+DUP2
+OR
+THROWIFNOT 69
+CALLREF {
+	CALL $__exp_macro$
+}
+MUL
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.globl	_downscaleDown_9912315d_internal
+.type	_downscaleDown_9912315d_internal, @function
+CALL $_downscaleDown_9912315d_internal_macro$
+
+.macro _downscaleDown_9912315d_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 71
+SWAP
+PUSHINT 10
+ROT
+DUP2
+OR
+THROWIFNOT 69
+CALLREF {
+	CALL $__exp_macro$
+}
+DIV
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.globl	_upscaleArray_b1f0fdf6_internal
+.type	_upscaleArray_b1f0fdf6_internal, @function
+CALL $_upscaleArray_b1f0fdf6_internal_macro$
+
+.macro _upscaleArray_b1f0fdf6_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 78
+PUSHINT 0
+NEWDICT
+PAIR
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 79
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S3
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 80
+	DUP2
+	PUSH S5
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S2, S4
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 8
+	CALLREF {
+		CALL $_upscale_c04b4444_internal_macro$
+	}
+	NEWC
+	STU 256
+	SWAP
+	UNPAIR
+	OVER
+	INC
+	ROLLREV 3
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S2
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 79
+	INC
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+}
+WHILE
+DROP
+BLKDROP2 2, 1
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.globl	_downscaleUpArray_e2b809e6_internal
+.type	_downscaleUpArray_e2b809e6_internal, @function
+CALL $_downscaleUpArray_e2b809e6_internal_macro$
+
+.macro _downscaleUpArray_e2b809e6_internal_macro
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 88
+PUSHINT 0
+NEWDICT
+PAIR
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 89
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S3
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 90
+	DUP2
+	PUSH S5
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S2, S4
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	CALLREF {
+		CALL $FixedPoint_no_obj_divUp_cbe8623f_macro$
+	}
+	NEWC
+	STU 256
+	SWAP
+	UNPAIR
+	OVER
+	INC
+	ROLLREV 3
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S2
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 89
+	INC
+	.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+}
+WHILE
+DROP
+BLKDROP2 2, 1
+.loc ../contracts/base/DeltexClusterHelpers.tsol, 0
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDU 32
+LDREF
+LDREF
+LDU 16
+LDMSGADDR
+LDDICT
+LDDICT
+ENDS
+SETGLOB 16
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHINT 1
+	OVER
+	PUSHINT 64
+	DICTUGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDU 32
+	}
+	IF
+	PUSHINT 2
+	PUSH S2
+	PUSHINT 64
+	DICTUGETREF
+	PUSHCONT {
+		PUSHREF {
+		}
+	}
+	IFNOT
+	PUSHINT 3
+	PUSH S3
+	PUSHINT 64
+	DICTUGETREF
+	PUSHCONT {
+		PUSHREF {
+		}
+	}
+	IFNOT
+	PUSHINT 0
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	NEWDICT
+	DUP
+	SETGLOB 16
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+	PUSHINT 0
+	SETGLOB 13
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 16
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STU 32
+STREF
+STREF
+STU 16
+STSLICE
+STDICT
+STDICT
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
+MODPOW2 1
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+THROWIFNOT 60
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHPOW2 9
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	ROT
+	GETGLOB 2
+	DUP
+	SETGLOB 5
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+IF
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.macro weightedPools
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 15
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000b1ed798a
+	NEWC
+	STSLICE
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro rootToWallet
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 16
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000a506d87f
+	NEWC
+	STSLICE
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.globl	FixedPoint_with_obj_sub_b67d77c5
+.type	FixedPoint_with_obj_sub_b67d77c5, @function
+CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+
+.macro FixedPoint_with_obj_sub_b67d77c5_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 39
+PUSH2 S0, S1
+LEQ
+THROWIFNOT 1001
+.loc ../contracts/libraries/FixedPoint.tsol, 40
+OVER
+SUBR
+UFITS 256
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_sub_b67d77c5
+.type	FixedPoint_no_obj_sub_b67d77c5, @function
+CALL $FixedPoint_no_obj_sub_b67d77c5_macro$
+
+.macro FixedPoint_no_obj_sub_b67d77c5_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 39
+PUSH2 S0, S1
+LEQ
+THROWIFNOT 1001
+.loc ../contracts/libraries/FixedPoint.tsol, 40
+SUB
+UFITS 256
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_with_obj_mulUp_f3e4f87c
+.type	FixedPoint_with_obj_mulUp_f3e4f87c, @function
+CALL $FixedPoint_with_obj_mulUp_f3e4f87c_macro$
+
+.macro FixedPoint_with_obj_mulUp_f3e4f87c_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 48
+DUP2
+MUL
+.loc ../contracts/libraries/FixedPoint.tsol, 49
+PUSH S2
+EQINT 0
+DUP
+PUSHCONT {
+	DROP
+	PUSH2 S0, S2
+	DIV
+	PUSH S2
+	EQUAL
+}
+IFNOT
+THROWIFNOT 1003
+.loc ../contracts/libraries/FixedPoint.tsol, 51
+DUP
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 60
+	DEC
+	UFITS 256
+	PUSHINT 1000000000000000000
+	DIV
+	INC
+	NIP
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 52
+	DROP2
+	PUSHINT 0
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_mulUp_f3e4f87c
+.type	FixedPoint_no_obj_mulUp_f3e4f87c, @function
+CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+
+.macro FixedPoint_no_obj_mulUp_f3e4f87c_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 48
+DUP2
+MUL
+.loc ../contracts/libraries/FixedPoint.tsol, 49
+PUSH S2
+EQINT 0
+DUP
+PUSHCONT {
+	DROP
+	PUSH2 S0, S2
+	DIV
+	PUSH S2
+	EQUAL
+}
+IFNOT
+THROWIFNOT 1003
+.loc ../contracts/libraries/FixedPoint.tsol, 51
+DUP
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 60
+	DEC
+	UFITS 256
+	PUSHINT 1000000000000000000
+	DIV
+	INC
+	BLKDROP2 2, 1
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 52
+	BLKDROP 3
+	PUSHINT 0
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_with_obj_divUp_cbe8623f
+.type	FixedPoint_with_obj_divUp_cbe8623f, @function
+CALL $FixedPoint_with_obj_divUp_cbe8623f_macro$
+
+.macro FixedPoint_with_obj_divUp_cbe8623f_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 70
+DUP
+THROWIFNOT 1004
+.loc ../contracts/libraries/FixedPoint.tsol, 72
+OVER
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 81
+	OVER
+	PUSHINT 1000000000000000000
+	MUL
+	DEC
+	UFITS 256
+	SWAP
+	DIV
+	INC
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 73
+	DROP
+	PUSHINT 0
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_divUp_cbe8623f
+.type	FixedPoint_no_obj_divUp_cbe8623f, @function
+CALL $FixedPoint_no_obj_divUp_cbe8623f_macro$
+
+.macro FixedPoint_no_obj_divUp_cbe8623f_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 70
+DUP
+THROWIFNOT 1004
+.loc ../contracts/libraries/FixedPoint.tsol, 72
+OVER
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 81
+	SWAP
+	PUSHINT 1000000000000000000
+	MUL
+	DEC
+	UFITS 256
+	SWAP
+	DIV
+	INC
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 73
+	DROP2
+	PUSHINT 0
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	WeightedMath_with_obj__calculateInvariant_350e278a
+.type	WeightedMath_with_obj__calculateInvariant_350e278a, @function
+CALL $WeightedMath_with_obj__calculateInvariant_350e278a_macro$
+
+.macro WeightedMath_with_obj__calculateInvariant_350e278a_macro
+.loc ../contracts/libraries/WeightedMath.tsol, 67
+PUSHINT 1000000000000000000
+.loc ../contracts/libraries/WeightedMath.tsol, 68
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S3
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/libraries/WeightedMath.tsol, 69
+	PUSH2 S1, S2
+	UNPAIR
+	PUXC S3, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S5, S8
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 64
+	CALLREF {
+		CALL $FixedPoint_with_obj_powDown_44735d4f_macro$
+	}
+	ROLLREV 4
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S5
+	CALLREF {
+		CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+	}
+	NIP
+	POP S2
+	.loc ../contracts/libraries/WeightedMath.tsol, 68
+	INC
+	.loc ../contracts/libraries/WeightedMath.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/libraries/WeightedMath.tsol, 72
+DUP
+GTINT 0
+THROWIFNOT 311
+.loc ../contracts/libraries/WeightedMath.tsol, 0
+NIP
+
+.globl	WeightedMath_no_obj__calculateInvariant_350e278a
+.type	WeightedMath_no_obj__calculateInvariant_350e278a, @function
+CALL $WeightedMath_no_obj__calculateInvariant_350e278a_macro$
+
+.macro WeightedMath_no_obj__calculateInvariant_350e278a_macro
+.loc ../contracts/libraries/WeightedMath.tsol, 67
+PUSHINT 1000000000000000000
+.loc ../contracts/libraries/WeightedMath.tsol, 68
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S3
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/libraries/WeightedMath.tsol, 69
+	PUSH2 S1, S2
+	UNPAIR
+	PUXC S3, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S5, S8
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 64
+	CALLREF {
+		CALL $FixedPoint_with_obj_powDown_44735d4f_macro$
+	}
+	ROLLREV 4
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S5
+	CALLREF {
+		CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+	}
+	NIP
+	POP S2
+	.loc ../contracts/libraries/WeightedMath.tsol, 68
+	INC
+	.loc ../contracts/libraries/WeightedMath.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/libraries/WeightedMath.tsol, 72
+DUP
+GTINT 0
+THROWIFNOT 311
+.loc ../contracts/libraries/WeightedMath.tsol, 0
+BLKDROP2 2, 1
+
+.globl	FixedPoint_with_obj_mulDown_0c9b9881
+.type	FixedPoint_with_obj_mulDown_0c9b9881, @function
+CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+
+.macro FixedPoint_with_obj_mulDown_0c9b9881_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 44
+OVER
+MUL
+PUSHINT 1000000000000000000
+DIV
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_mulDown_0c9b9881
+.type	FixedPoint_no_obj_mulDown_0c9b9881, @function
+CALL $FixedPoint_no_obj_mulDown_0c9b9881_macro$
+
+.macro FixedPoint_no_obj_mulDown_0c9b9881_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 44
+MUL
+PUSHINT 1000000000000000000
+DIV
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_with_obj_powDown_44735d4f
+.type	FixedPoint_with_obj_powDown_44735d4f, @function
+CALL $FixedPoint_with_obj_powDown_44735d4f_macro$
+
+.macro FixedPoint_with_obj_powDown_44735d4f_macro
+PUSHINT 0
+.loc ../contracts/libraries/FixedPoint.tsol, 92
+OVER
+PUSHINT 1000000000000000000
+EQUAL
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 93
+	PUSH S2
+	BLKDROP2 2, 1
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	OVER
+	PUSHINT 2000000000000000000
+	EQUAL
+	PUSHCONT {
+		.loc ../contracts/libraries/FixedPoint.tsol, 95
+		PUSH2 S2, S2
+		CALLREF {
+			CALL $FixedPoint_no_obj_mulDown_0c9b9881_macro$
+		}
+		BLKDROP2 2, 1
+		.loc ../contracts/libraries/FixedPoint.tsol, 0
+	}
+	PUSHCONT {
+		OVER
+		PUSHINT 4000000000000000000
+		EQUAL
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 97
+			PUSH2 S2, S2
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulDown_0c9b9881_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 98
+			DUP
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulDown_0c9b9881_macro$
+			}
+			BLKDROP2 2, 1
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 100
+			PUSH S2
+			ROT
+			CALLREF {
+				CALL $LogExpMath_no_obj_pow_2e4c697f_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 101
+			DUP
+			PUSHINT 10000
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			PUSHINT 1
+			CALLREF {
+				CALL $FixedPoint_no_obj_add_771602f7_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 103
+			DUP2
+			LESS
+			PUSHCONT {
+				.loc ../contracts/libraries/FixedPoint.tsol, 104
+				BLKDROP 3
+				PUSHINT 0
+				.loc ../contracts/libraries/FixedPoint.tsol, 0
+			}
+			PUSHCONT {
+				.loc ../contracts/libraries/FixedPoint.tsol, 106
+				CALLREF {
+					CALL $FixedPoint_no_obj_sub_b67d77c5_macro$
+				}
+				NIP
+				.loc ../contracts/libraries/FixedPoint.tsol, 0
+			}
+			IFELSE
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		IFELSE
+	}
+	IFELSE
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_powDown_44735d4f
+.type	FixedPoint_no_obj_powDown_44735d4f, @function
+CALL $FixedPoint_no_obj_powDown_44735d4f_macro$
+
+.macro FixedPoint_no_obj_powDown_44735d4f_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 89
+PUSHINT 0
+.loc ../contracts/libraries/FixedPoint.tsol, 92
+OVER
+PUSHINT 1000000000000000000
+EQUAL
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 93
+	DROP2
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	OVER
+	PUSHINT 2000000000000000000
+	EQUAL
+	PUSHCONT {
+		.loc ../contracts/libraries/FixedPoint.tsol, 95
+		PUSH S2
+		ROLL 3
+		CALLREF {
+			CALL $FixedPoint_no_obj_mulDown_0c9b9881_macro$
+		}
+		BLKDROP2 2, 1
+		.loc ../contracts/libraries/FixedPoint.tsol, 0
+	}
+	PUSHCONT {
+		OVER
+		PUSHINT 4000000000000000000
+		EQUAL
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 97
+			PUSH S2
+			ROLL 3
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulDown_0c9b9881_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 98
+			DUP
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulDown_0c9b9881_macro$
+			}
+			BLKDROP2 2, 1
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 100
+			ROTREV
+			CALLREF {
+				CALL $LogExpMath_no_obj_pow_2e4c697f_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 101
+			DUP
+			PUSHINT 10000
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			PUSHINT 1
+			CALLREF {
+				CALL $FixedPoint_no_obj_add_771602f7_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 103
+			DUP2
+			LESS
+			PUSHCONT {
+				.loc ../contracts/libraries/FixedPoint.tsol, 104
+				BLKDROP 3
+				PUSHINT 0
+				.loc ../contracts/libraries/FixedPoint.tsol, 0
+			}
+			PUSHCONT {
+				.loc ../contracts/libraries/FixedPoint.tsol, 106
+				CALLREF {
+					CALL $FixedPoint_no_obj_sub_b67d77c5_macro$
+				}
+				NIP
+				.loc ../contracts/libraries/FixedPoint.tsol, 0
+			}
+			IFELSE
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		IFELSE
+	}
+	IFELSE
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_with_obj_add_771602f7
+.type	FixedPoint_with_obj_add_771602f7, @function
+CALL $FixedPoint_with_obj_add_771602f7_macro$
+
+.macro FixedPoint_with_obj_add_771602f7_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 34
+OVER
+ADD
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_add_771602f7
+.type	FixedPoint_no_obj_add_771602f7, @function
+CALL $FixedPoint_no_obj_add_771602f7_macro$
+
+.macro FixedPoint_no_obj_add_771602f7_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 34
+ADD
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	WeightedMath_with_obj__calcOutGivenIn_5ce3dd58
+.type	WeightedMath_with_obj__calcOutGivenIn_5ce3dd58, @function
+CALL $WeightedMath_with_obj__calcOutGivenIn_5ce3dd58_macro$
+
+.macro WeightedMath_with_obj__calcOutGivenIn_5ce3dd58_macro
+.loc ../contracts/libraries/WeightedMath.tsol, 100
+PUSH2 S0, S4
+PUSHINT 900000000000000000
+CALLREF {
+	CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+}
+SWAP
+POP S7
+LEQ
+THROWIFNOT 304
+.loc ../contracts/libraries/WeightedMath.tsol, 102
+PUXC S4, S-1
+CALLREF {
+	CALL $FixedPoint_with_obj_add_771602f7_macro$
+}
+SWAP
+POP S5
+.loc ../contracts/libraries/WeightedMath.tsol, 103
+PUXC S4, S-1
+CALLREF {
+	CALL $FixedPoint_with_obj_divUp_cbe8623f_macro$
+}
+SWAP
+POP S5
+.loc ../contracts/libraries/WeightedMath.tsol, 104
+ROLL 3
+ROT
+CALLREF {
+	CALL $FixedPoint_with_obj_divDown_9ba5f52e_macro$
+}
+NIP
+.loc ../contracts/libraries/WeightedMath.tsol, 105
+CALLREF {
+	CALL $FixedPoint_with_obj_powUp_164c95d5_macro$
+}
+NIP
+.loc ../contracts/libraries/WeightedMath.tsol, 107
+CALLREF {
+	CALL $FixedPoint_with_obj_complement_9145aab0_macro$
+}
+NIP
+CALLREF {
+	CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+}
+NIP
+.loc ../contracts/libraries/WeightedMath.tsol, 0
+
+.globl	WeightedMath_no_obj__calcOutGivenIn_5ce3dd58
+.type	WeightedMath_no_obj__calcOutGivenIn_5ce3dd58, @function
+CALL $WeightedMath_no_obj__calcOutGivenIn_5ce3dd58_macro$
+
+.macro WeightedMath_no_obj__calcOutGivenIn_5ce3dd58_macro
+.loc ../contracts/libraries/WeightedMath.tsol, 100
+PUSH2 S0, S4
+PUSHINT 900000000000000000
+CALLREF {
+	CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+}
+SWAP
+POP S7
+LEQ
+THROWIFNOT 304
+.loc ../contracts/libraries/WeightedMath.tsol, 102
+PUXC S4, S-1
+CALLREF {
+	CALL $FixedPoint_with_obj_add_771602f7_macro$
+}
+SWAP
+POP S5
+.loc ../contracts/libraries/WeightedMath.tsol, 103
+ROLL 4
+SWAP
+CALLREF {
+	CALL $FixedPoint_with_obj_divUp_cbe8623f_macro$
+}
+NIP
+.loc ../contracts/libraries/WeightedMath.tsol, 104
+ROLL 3
+ROT
+CALLREF {
+	CALL $FixedPoint_with_obj_divDown_9ba5f52e_macro$
+}
+NIP
+.loc ../contracts/libraries/WeightedMath.tsol, 105
+CALLREF {
+	CALL $FixedPoint_with_obj_powUp_164c95d5_macro$
+}
+NIP
+.loc ../contracts/libraries/WeightedMath.tsol, 107
+CALLREF {
+	CALL $FixedPoint_with_obj_complement_9145aab0_macro$
+}
+NIP
+CALLREF {
+	CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+}
+NIP
+.loc ../contracts/libraries/WeightedMath.tsol, 0
+
+.globl	FixedPoint_with_obj_divDown_9ba5f52e
+.type	FixedPoint_with_obj_divDown_9ba5f52e, @function
+CALL $FixedPoint_with_obj_divDown_9ba5f52e_macro$
+
+.macro FixedPoint_with_obj_divDown_9ba5f52e_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 65
+DUP
+THROWIFNOT 1004
+.loc ../contracts/libraries/FixedPoint.tsol, 66
+OVER
+PUSHINT 1000000000000000000
+MUL
+SWAP
+DIV
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_divDown_9ba5f52e
+.type	FixedPoint_no_obj_divDown_9ba5f52e, @function
+CALL $FixedPoint_no_obj_divDown_9ba5f52e_macro$
+
+.macro FixedPoint_no_obj_divDown_9ba5f52e_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 65
+DUP
+THROWIFNOT 1004
+.loc ../contracts/libraries/FixedPoint.tsol, 66
+SWAP
+PUSHINT 1000000000000000000
+MUL
+SWAP
+DIV
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_with_obj_powUp_164c95d5
+.type	FixedPoint_with_obj_powUp_164c95d5, @function
+CALL $FixedPoint_with_obj_powUp_164c95d5_macro$
+
+.macro FixedPoint_with_obj_powUp_164c95d5_macro
+PUSHINT 0
+.loc ../contracts/libraries/FixedPoint.tsol, 118
+OVER
+PUSHINT 1000000000000000000
+EQUAL
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 119
+	PUSH S2
+	BLKDROP2 2, 1
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	OVER
+	PUSHINT 2000000000000000000
+	EQUAL
+	PUSHCONT {
+		.loc ../contracts/libraries/FixedPoint.tsol, 121
+		PUSH2 S2, S2
+		CALLREF {
+			CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+		}
+		BLKDROP2 2, 1
+		.loc ../contracts/libraries/FixedPoint.tsol, 0
+	}
+	PUSHCONT {
+		OVER
+		PUSHINT 4000000000000000000
+		EQUAL
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 123
+			PUSH2 S2, S2
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 124
+			DUP
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			BLKDROP2 2, 1
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 126
+			PUSH S2
+			ROT
+			CALLREF {
+				CALL $LogExpMath_no_obj_pow_2e4c697f_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 127
+			DUP
+			PUSHINT 10000
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			PUSHINT 1
+			CALLREF {
+				CALL $FixedPoint_no_obj_add_771602f7_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 129
+			CALLREF {
+				CALL $FixedPoint_no_obj_add_771602f7_macro$
+			}
+			NIP
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		IFELSE
+	}
+	IFELSE
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_powUp_164c95d5
+.type	FixedPoint_no_obj_powUp_164c95d5, @function
+CALL $FixedPoint_no_obj_powUp_164c95d5_macro$
+
+.macro FixedPoint_no_obj_powUp_164c95d5_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 115
+PUSHINT 0
+.loc ../contracts/libraries/FixedPoint.tsol, 118
+OVER
+PUSHINT 1000000000000000000
+EQUAL
+PUSHCONT {
+	.loc ../contracts/libraries/FixedPoint.tsol, 119
+	DROP2
+	.loc ../contracts/libraries/FixedPoint.tsol, 0
+}
+PUSHCONT {
+	OVER
+	PUSHINT 2000000000000000000
+	EQUAL
+	PUSHCONT {
+		.loc ../contracts/libraries/FixedPoint.tsol, 121
+		PUSH S2
+		ROLL 3
+		CALLREF {
+			CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+		}
+		BLKDROP2 2, 1
+		.loc ../contracts/libraries/FixedPoint.tsol, 0
+	}
+	PUSHCONT {
+		OVER
+		PUSHINT 4000000000000000000
+		EQUAL
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 123
+			PUSH S2
+			ROLL 3
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 124
+			DUP
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			BLKDROP2 2, 1
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		PUSHCONT {
+			.loc ../contracts/libraries/FixedPoint.tsol, 126
+			ROTREV
+			CALLREF {
+				CALL $LogExpMath_no_obj_pow_2e4c697f_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 127
+			DUP
+			PUSHINT 10000
+			CALLREF {
+				CALL $FixedPoint_no_obj_mulUp_f3e4f87c_macro$
+			}
+			PUSHINT 1
+			CALLREF {
+				CALL $FixedPoint_no_obj_add_771602f7_macro$
+			}
+			.loc ../contracts/libraries/FixedPoint.tsol, 129
+			CALLREF {
+				CALL $FixedPoint_no_obj_add_771602f7_macro$
+			}
+			NIP
+			.loc ../contracts/libraries/FixedPoint.tsol, 0
+		}
+		IFELSE
+	}
+	IFELSE
+}
+IFELSE
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_with_obj_complement_9145aab0
+.type	FixedPoint_with_obj_complement_9145aab0, @function
+CALL $FixedPoint_with_obj_complement_9145aab0_macro$
+
+.macro FixedPoint_with_obj_complement_9145aab0_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 142
+DUP
+PUSHINT 1000000000000000000
+LESS
+ZEROSWAPIFNOT
+PUSHCONT {
+	PUSHINT 1000000000000000000
+	OVER
+	SUB
+	UFITS 256
+}
+IF
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	FixedPoint_no_obj_complement_9145aab0
+.type	FixedPoint_no_obj_complement_9145aab0, @function
+CALL $FixedPoint_no_obj_complement_9145aab0_macro$
+
+.macro FixedPoint_no_obj_complement_9145aab0_macro
+.loc ../contracts/libraries/FixedPoint.tsol, 142
+DUP
+PUSHINT 1000000000000000000
+LESS
+ZEROSWAPIFNOT
+PUSHCONT {
+	PUSHINT 1000000000000000000
+	OVER
+	SUB
+	UFITS 256
+}
+IF
+NIP
+.loc ../contracts/libraries/FixedPoint.tsol, 0
+
+.globl	WeightedMath_with_obj__calcDptOutGivenExactTokensIn_f9b9f547
+.type	WeightedMath_with_obj__calcDptOutGivenExactTokensIn_f9b9f547, @function
+CALL $WeightedMath_with_obj__calcDptOutGivenExactTokensIn_f9b9f547_macro$
+
+.macro WeightedMath_with_obj__calcDptOutGivenExactTokensIn_f9b9f547_macro
+.loc ../contracts/libraries/WeightedMath.tsol, 157
+PUSH S2
+FIRST
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSH S3
+PUSHCONT {
+	BLKPUSH 2, 2
+	INC
+	XCHG S3
+	ROT
+	PUSHINT 32
+	DICTUSETB
+}
+REPEAT
+BLKDROP2 2, 1
+PAIR
+.loc ../contracts/libraries/WeightedMath.tsol, 159
+PUSHINT 0
+DUP
+.loc ../contracts/libraries/WeightedMath.tsol, 160
+PUSHCONT {
+	PUSH2 S0, S7
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/libraries/WeightedMath.tsol, 161
+	PUSH S7
+	UNPAIR
+	PUXC S2, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S4, S9
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	CALLREF {
+		CALL $FixedPoint_with_obj_add_771602f7_macro$
+	}
+	ROLLREV 4
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S9
+	.loc ../contracts/libraries/WeightedMath.tsol, 162
+	PUSH2 S1, S8
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	CALLREF {
+		CALL $FixedPoint_with_obj_divDown_9ba5f52e_macro$
+	}
+	NIP
+	PUSH S3
+	UNPAIR
+	PUXC S3, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	ROLL 3
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S3
+	.loc ../contracts/libraries/WeightedMath.tsol, 163
+	PUSH2 S1, S2
+	UNPAIR
+	PUXC S3, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S5, S11
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 64
+	CALLREF {
+		CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+	}
+	ROLLREV 4
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S5
+	CALLREF {
+		CALL $FixedPoint_with_obj_add_771602f7_macro$
+	}
+	NIP
+	POP S2
+	.loc ../contracts/libraries/WeightedMath.tsol, 160
+	INC
+	.loc ../contracts/libraries/WeightedMath.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/libraries/WeightedMath.tsol, 166
+PUSHINT 1000000000000000000
+.loc ../contracts/libraries/WeightedMath.tsol, 167
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S8
+	FIRST
+	LESS
+}
+PUSHCONT {
+	PUSHCONT {
+		.loc ../contracts/libraries/WeightedMath.tsol, 168
+		PUSHINT 0
+		.loc ../contracts/libraries/WeightedMath.tsol, 170
+		FALSE ; decl return flag
+		PUSH2 S2, S5
+		SECOND
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 256
+		PUSH S5
+		GREATER
+		PUSHCONT {
+			.loc ../contracts/libraries/WeightedMath.tsol, 173
+			PUSH S4
+			PUSHINT 1000000000000000000
+			GREATER
+			ZEROSWAPIFNOT
+			PUSHCONT {
+				PUSH S10
+				UNPAIR
+				PUXC S4, S-1
+				PUSH2 S1, S2
+				LESS
+				THROWIFNOT 50
+				DUP2
+				PUSHINT 32
+				DICTUGET
+				THROWIFNOT 50
+				PLDU 256
+				PUSH S8
+				PUSHINT 1000000000000000000
+				CALLREF {
+					CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+				}
+				SWAP
+				POP S10
+				CALLREF {
+					CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+				}
+				ROLLREV 4
+				NEWC
+				STU 256
+				ROTREV
+				PUSHINT 32
+				DICTUSETB
+				PAIR
+				POP S12
+			}
+			IF
+			.loc ../contracts/libraries/WeightedMath.tsol, 176
+			PUSH S9
+			UNPAIR
+			PUXC S5, S-1
+			PUSH2 S1, S2
+			LESS
+			THROWIFNOT 50
+			DUP2
+			PUSHINT 32
+			DICTUGET
+			THROWIFNOT 50
+			PLDU 256
+			ROLL 4
+			CALLREF {
+				CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+			}
+			ROLLREV 4
+			NEWC
+			STU 256
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			PAIR
+			POP S10
+			.loc ../contracts/libraries/WeightedMath.tsol, 177
+			PUSH S7
+			CALLREF {
+				CALL $FixedPoint_with_obj_mulUp_f3e4f87c_macro$
+			}
+			NIP
+			.loc ../contracts/libraries/WeightedMath.tsol, 178
+			PUSH S9
+			UNPAIR
+			PUXC S5, S-1
+			PUSH2 S1, S2
+			LESS
+			THROWIFNOT 50
+			DUP2
+			PUSHINT 32
+			DICTUGET
+			THROWIFNOT 50
+			PLDU 256
+			ROLL 4
+			CALLREF {
+				CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+			}
+			ROLLREV 4
+			NEWC
+			STU 256
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			PAIR
+			POP S10
+			POP S2
+			.loc ../contracts/libraries/WeightedMath.tsol, 0
+		}
+		PUSHCONT {
+			.loc ../contracts/libraries/WeightedMath.tsol, 180
+			PUSH2 S2, S8
+			SECOND
+			PUSHINT 32
+			DICTUGET
+			THROWIFNOT 50
+			PLDU 256
+			POP S2
+			.loc ../contracts/libraries/WeightedMath.tsol, 186
+			OVER
+			PUSHCONT {
+				.loc ../contracts/libraries/WeightedMath.tsol, 187
+				DROP2
+				PUSHINT 1
+				.loc ../contracts/libraries/WeightedMath.tsol, 0
+			}
+			IFNOTJMP
+			.loc ../contracts/libraries/WeightedMath.tsol, 0
+		}
+		IFELSE
+		IFRET
+		.loc ../contracts/libraries/WeightedMath.tsol, 191
+		PUSH S9
+		UNPAIR
+		PUXC S3, S-1
+		PUSH2 S1, S2
+		LESS
+		THROWIFNOT 50
+		DUP2
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 256
+		ROLL 4
+		CALLREF {
+			CALL $FixedPoint_with_obj_add_771602f7_macro$
+		}
+		ROLLREV 4
+		NEWC
+		STU 256
+		ROTREV
+		PUSHINT 32
+		DICTUSETB
+		PAIR
+		POP S10
+		.loc ../contracts/libraries/WeightedMath.tsol, 192
+		PUSH2 S1, S9
+		SECOND
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 256
+		CALLREF {
+			CALL $FixedPoint_with_obj_divDown_9ba5f52e_macro$
+		}
+		NIP
+		.loc ../contracts/libraries/WeightedMath.tsol, 193
+		PUXC S2, S-1
+		PUSH2 S2, S9
+		SECOND
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 64
+		CALLREF {
+			CALL $FixedPoint_with_obj_powDown_44735d4f_macro$
+		}
+		NIP
+		CALLREF {
+			CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+		}
+		NIP
+		POP S2
+		.loc ../contracts/libraries/WeightedMath.tsol, 0
+	}
+	CALLX
+	.loc ../contracts/libraries/WeightedMath.tsol, 167
+	INC
+	.loc ../contracts/libraries/WeightedMath.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/libraries/WeightedMath.tsol, 196
+DUP
+PUSHINT 1000000000000000000
+GREATER
+ZEROSWAPIFNOT
+PUSHCONT {
+	PUSH2 S4, S0
+	PUSHINT 1000000000000000000
+	CALLREF {
+		CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+	}
+	SWAP
+	POP S3
+	CALLREF {
+		CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+	}
+	SWAP
+	POP S6
+}
+IF
+.loc ../contracts/libraries/WeightedMath.tsol, 199
+BLKDROP2 7, 1
+.loc ../contracts/libraries/WeightedMath.tsol, 0
+
+.globl	WeightedMath_no_obj__calcDptOutGivenExactTokensIn_f9b9f547
+.type	WeightedMath_no_obj__calcDptOutGivenExactTokensIn_f9b9f547, @function
+CALL $WeightedMath_no_obj__calcDptOutGivenExactTokensIn_f9b9f547_macro$
+
+.macro WeightedMath_no_obj__calcDptOutGivenExactTokensIn_f9b9f547_macro
+.loc ../contracts/libraries/WeightedMath.tsol, 157
+PUSH S2
+FIRST
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSH S3
+PUSHCONT {
+	BLKPUSH 2, 2
+	INC
+	XCHG S3
+	ROT
+	PUSHINT 32
+	DICTUSETB
+}
+REPEAT
+BLKDROP2 2, 1
+PAIR
+.loc ../contracts/libraries/WeightedMath.tsol, 159
+PUSHINT 0
+DUP
+.loc ../contracts/libraries/WeightedMath.tsol, 160
+PUSHCONT {
+	PUSH2 S0, S7
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/libraries/WeightedMath.tsol, 161
+	PUSH S7
+	UNPAIR
+	PUXC S2, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S4, S9
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	CALLREF {
+		CALL $FixedPoint_with_obj_add_771602f7_macro$
+	}
+	ROLLREV 4
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S9
+	.loc ../contracts/libraries/WeightedMath.tsol, 162
+	PUSH2 S1, S8
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	CALLREF {
+		CALL $FixedPoint_with_obj_divDown_9ba5f52e_macro$
+	}
+	NIP
+	PUSH S3
+	UNPAIR
+	PUXC S3, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	ROLL 3
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S3
+	.loc ../contracts/libraries/WeightedMath.tsol, 163
+	PUSH2 S1, S2
+	UNPAIR
+	PUXC S3, S-1
+	PUSH2 S1, S2
+	LESS
+	THROWIFNOT 50
+	DUP2
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	PUSH2 S5, S11
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 64
+	CALLREF {
+		CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+	}
+	ROLLREV 4
+	NEWC
+	STU 256
+	ROTREV
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S5
+	CALLREF {
+		CALL $FixedPoint_with_obj_add_771602f7_macro$
+	}
+	NIP
+	POP S2
+	.loc ../contracts/libraries/WeightedMath.tsol, 160
+	INC
+	.loc ../contracts/libraries/WeightedMath.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/libraries/WeightedMath.tsol, 166
+PUSHINT 1000000000000000000
+.loc ../contracts/libraries/WeightedMath.tsol, 167
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S8
+	FIRST
+	LESS
+}
+PUSHCONT {
+	PUSHCONT {
+		.loc ../contracts/libraries/WeightedMath.tsol, 168
+		PUSHINT 0
+		.loc ../contracts/libraries/WeightedMath.tsol, 170
+		FALSE ; decl return flag
+		PUSH2 S2, S5
+		SECOND
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 256
+		PUSH S5
+		GREATER
+		PUSHCONT {
+			.loc ../contracts/libraries/WeightedMath.tsol, 173
+			PUSH S4
+			PUSHINT 1000000000000000000
+			GREATER
+			ZEROSWAPIFNOT
+			PUSHCONT {
+				PUSH S10
+				UNPAIR
+				PUXC S4, S-1
+				PUSH2 S1, S2
+				LESS
+				THROWIFNOT 50
+				DUP2
+				PUSHINT 32
+				DICTUGET
+				THROWIFNOT 50
+				PLDU 256
+				PUSH S8
+				PUSHINT 1000000000000000000
+				CALLREF {
+					CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+				}
+				SWAP
+				POP S10
+				CALLREF {
+					CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+				}
+				ROLLREV 4
+				NEWC
+				STU 256
+				ROTREV
+				PUSHINT 32
+				DICTUSETB
+				PAIR
+				POP S12
+			}
+			IF
+			.loc ../contracts/libraries/WeightedMath.tsol, 176
+			PUSH S9
+			UNPAIR
+			PUXC S5, S-1
+			PUSH2 S1, S2
+			LESS
+			THROWIFNOT 50
+			DUP2
+			PUSHINT 32
+			DICTUGET
+			THROWIFNOT 50
+			PLDU 256
+			ROLL 4
+			CALLREF {
+				CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+			}
+			ROLLREV 4
+			NEWC
+			STU 256
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			PAIR
+			POP S10
+			.loc ../contracts/libraries/WeightedMath.tsol, 177
+			PUSH S7
+			CALLREF {
+				CALL $FixedPoint_with_obj_mulUp_f3e4f87c_macro$
+			}
+			NIP
+			.loc ../contracts/libraries/WeightedMath.tsol, 178
+			PUSH S9
+			UNPAIR
+			PUXC S5, S-1
+			PUSH2 S1, S2
+			LESS
+			THROWIFNOT 50
+			DUP2
+			PUSHINT 32
+			DICTUGET
+			THROWIFNOT 50
+			PLDU 256
+			ROLL 4
+			CALLREF {
+				CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+			}
+			ROLLREV 4
+			NEWC
+			STU 256
+			ROTREV
+			PUSHINT 32
+			DICTUSETB
+			PAIR
+			POP S10
+			POP S2
+			.loc ../contracts/libraries/WeightedMath.tsol, 0
+		}
+		PUSHCONT {
+			.loc ../contracts/libraries/WeightedMath.tsol, 180
+			PUSH2 S2, S8
+			SECOND
+			PUSHINT 32
+			DICTUGET
+			THROWIFNOT 50
+			PLDU 256
+			POP S2
+			.loc ../contracts/libraries/WeightedMath.tsol, 186
+			OVER
+			PUSHCONT {
+				.loc ../contracts/libraries/WeightedMath.tsol, 187
+				DROP2
+				PUSHINT 1
+				.loc ../contracts/libraries/WeightedMath.tsol, 0
+			}
+			IFNOTJMP
+			.loc ../contracts/libraries/WeightedMath.tsol, 0
+		}
+		IFELSE
+		IFRET
+		.loc ../contracts/libraries/WeightedMath.tsol, 191
+		PUSH S9
+		UNPAIR
+		PUXC S3, S-1
+		PUSH2 S1, S2
+		LESS
+		THROWIFNOT 50
+		DUP2
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 256
+		ROLL 4
+		CALLREF {
+			CALL $FixedPoint_with_obj_add_771602f7_macro$
+		}
+		ROLLREV 4
+		NEWC
+		STU 256
+		ROTREV
+		PUSHINT 32
+		DICTUSETB
+		PAIR
+		POP S10
+		.loc ../contracts/libraries/WeightedMath.tsol, 192
+		PUSH2 S1, S9
+		SECOND
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 256
+		CALLREF {
+			CALL $FixedPoint_with_obj_divDown_9ba5f52e_macro$
+		}
+		NIP
+		.loc ../contracts/libraries/WeightedMath.tsol, 193
+		PUXC S2, S-1
+		PUSH2 S2, S9
+		SECOND
+		PUSHINT 32
+		DICTUGET
+		THROWIFNOT 50
+		PLDU 64
+		CALLREF {
+			CALL $FixedPoint_with_obj_powDown_44735d4f_macro$
+		}
+		NIP
+		CALLREF {
+			CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+		}
+		NIP
+		POP S2
+		.loc ../contracts/libraries/WeightedMath.tsol, 0
+	}
+	CALLX
+	.loc ../contracts/libraries/WeightedMath.tsol, 167
+	INC
+	.loc ../contracts/libraries/WeightedMath.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/libraries/WeightedMath.tsol, 196
+DUP
+PUSHINT 1000000000000000000
+GREATER
+ZEROSWAPIFNOT
+PUSHCONT {
+	PUSH2 S4, S0
+	PUSHINT 1000000000000000000
+	CALLREF {
+		CALL $FixedPoint_with_obj_sub_b67d77c5_macro$
+	}
+	SWAP
+	POP S3
+	CALLREF {
+		CALL $FixedPoint_with_obj_mulDown_0c9b9881_macro$
+	}
+	SWAP
+	POP S6
+}
+IF
+.loc ../contracts/libraries/WeightedMath.tsol, 199
+BLKDROP2 8, 1
+.loc ../contracts/libraries/WeightedMath.tsol, 0
+
+.globl	LogExpMath_with_obj_pow_2e4c697f
+.type	LogExpMath_with_obj_pow_2e4c697f, @function
+CALL $LogExpMath_with_obj_pow_2e4c697f_macro$
+
+.macro LogExpMath_with_obj_pow_2e4c697f_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 95
+DUP
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 97
+	PUSHINT 1000000000000000000
+	UFITS 256
+	NIP
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFNOTJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 100
+OVER
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 101
+	DROP
+	PUSHINT 0
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFNOTJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 109
+OVER
+RSHIFT 255
+THROWIF 1006
+.loc ../contracts/libraries/LogExpMath.tsol, 110
+OVER
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 116
+OVER
+PUSHPOW2 254
+PUSHINT 100000000000000000000
+UFITS 256
+DIV
+LESS
+THROWIFNOT 1007
+.loc ../contracts/libraries/LogExpMath.tsol, 117
+SWAP
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 119
+PUSHINT 0
+.loc ../contracts/libraries/LogExpMath.tsol, 120
+PUSHINT 1000000000000000000
+PUSHINT 100000000000000000
+SUB
+FITS 256
+PUSH S3
+LESS
+DUP
+PUSHCONT {
+	DROP
+	PUSH S2
+	PUSHINT 1000000000000000000
+	PUSHINT 100000000000000000
+	ADD
+	FITS 256
+	LESS
+}
+IF
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 121
+	PUSH S2
+	CALLREF {
+		CALL $LogExpMath_no_obj__ln_36_88fb77af_macro$
+	}
+	.loc ../contracts/libraries/LogExpMath.tsol, 127
+	DUP
+	PUSHINT 1000000000000000000
+	DIV
+	PUSH S3
+	MUL
+	FITS 256
+	SWAP
+	PUSHINT 1000000000000000000
+	MOD
+	PUSH S3
+	MUL
+	FITS 256
+	PUSHINT 1000000000000000000
+	DIV
+	ADD
+}
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 129
+	PUSH S2
+	CALLREF {
+		CALL $LogExpMath_no_obj__ln_35a4f9ce_macro$
+	}
+	PUSH S2
+	MUL
+}
+IFELSE
+FITS 256
+NIP
+.loc ../contracts/libraries/LogExpMath.tsol, 131
+PUSHINT 1000000000000000000
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 134
+PUSHINT -41000000000000000000
+OVER
+LEQ
+OVER
+PUSHINT 130000000000000000000
+LEQ
+AND
+THROWIFNOT 1008
+.loc ../contracts/libraries/LogExpMath.tsol, 139
+CALLREF {
+	CALL $LogExpMath_no_obj_exp_e46751e3_macro$
+}
+UFITS 256
+BLKDROP2 2, 1
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.globl	LogExpMath_no_obj_pow_2e4c697f
+.type	LogExpMath_no_obj_pow_2e4c697f, @function
+CALL $LogExpMath_no_obj_pow_2e4c697f_macro$
+
+.macro LogExpMath_no_obj_pow_2e4c697f_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 95
+DUP
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 97
+	PUSHINT 1000000000000000000
+	UFITS 256
+	BLKDROP2 2, 1
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFNOTJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 100
+OVER
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 101
+	DROP2
+	PUSHINT 0
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFNOTJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 109
+OVER
+RSHIFT 255
+THROWIF 1006
+.loc ../contracts/libraries/LogExpMath.tsol, 110
+SWAP
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 116
+OVER
+PUSHPOW2 254
+PUSHINT 100000000000000000000
+UFITS 256
+DIV
+LESS
+THROWIFNOT 1007
+.loc ../contracts/libraries/LogExpMath.tsol, 117
+SWAP
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 119
+PUSHINT 0
+.loc ../contracts/libraries/LogExpMath.tsol, 120
+PUSHINT 1000000000000000000
+PUSHINT 100000000000000000
+SUB
+FITS 256
+PUSH S3
+LESS
+DUP
+PUSHCONT {
+	DROP
+	PUSH S2
+	PUSHINT 1000000000000000000
+	PUSHINT 100000000000000000
+	ADD
+	FITS 256
+	LESS
+}
+IF
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 121
+	PUSH S2
+	CALLREF {
+		CALL $LogExpMath_no_obj__ln_36_88fb77af_macro$
+	}
+	.loc ../contracts/libraries/LogExpMath.tsol, 127
+	DUP
+	PUSHINT 1000000000000000000
+	DIV
+	PUSH S3
+	MUL
+	FITS 256
+	SWAP
+	PUSHINT 1000000000000000000
+	MOD
+	PUSH S3
+	MUL
+	FITS 256
+	PUSHINT 1000000000000000000
+	DIV
+	ADD
+}
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 129
+	PUSH S2
+	CALLREF {
+		CALL $LogExpMath_no_obj__ln_35a4f9ce_macro$
+	}
+	PUSH S2
+	MUL
+}
+IFELSE
+FITS 256
+NIP
+.loc ../contracts/libraries/LogExpMath.tsol, 131
+PUSHINT 1000000000000000000
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 134
+PUSHINT -41000000000000000000
+OVER
+LEQ
+OVER
+PUSHINT 130000000000000000000
+LEQ
+AND
+THROWIFNOT 1008
+.loc ../contracts/libraries/LogExpMath.tsol, 139
+CALLREF {
+	CALL $LogExpMath_no_obj_exp_e46751e3_macro$
+}
+UFITS 256
+BLKDROP2 2, 1
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.globl	LogExpMath_with_obj_exp_e46751e3
+.type	LogExpMath_with_obj_exp_e46751e3, @function
+CALL $LogExpMath_with_obj_exp_e46751e3_macro$
+
+.macro LogExpMath_with_obj_exp_e46751e3_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 148
+DUP
+PUSHINT -41000000000000000000
+GEQ
+OVER
+PUSHINT 130000000000000000000
+LEQ
+AND
+THROWIFNOT 1009
+.loc ../contracts/libraries/LogExpMath.tsol, 150
+DUP
+LESSINT 0
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 154
+	PUSHINT 1000000000000000000000000000000000000
+	FITS 256
+	OVER
+	NEGATE
+	CALL $LogExpMath_no_obj_exp_e46751e3$
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 174
+PUSHINT 0
+.loc ../contracts/libraries/LogExpMath.tsol, 175
+OVER
+PUSHINT 128000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 176
+	DROP
+	PUSHINT 128000000000000000000
+	SUB
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 177
+	PUSHINT 38877084059945950922200000000000000000000000000000000000
+}
+PUSHCONT {
+	OVER
+	PUSHINT 64000000000000000000
+	GEQ
+	PUSHCONT {
+		.loc ../contracts/libraries/LogExpMath.tsol, 179
+		DROP
+		PUSHINT 64000000000000000000
+		SUB
+		FITS 256
+		.loc ../contracts/libraries/LogExpMath.tsol, 180
+		PUSHINT 6235149080811616882910000000
+	}
+	PUSHCONT {
+		.loc ../contracts/libraries/LogExpMath.tsol, 182
+		DROP
+		PUSHINT 1
+	}
+	IFELSE
+}
+IFELSE
+.loc ../contracts/libraries/LogExpMath.tsol, 187
+OVER
+MULCONST 100
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 191
+PUSHINT 100000000000000000000
+.loc ../contracts/libraries/LogExpMath.tsol, 193
+PUSH S2
+PUSHINT 3200000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 194
+	PUSH S2
+	PUSHINT 3200000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 195
+	PUSHINT 7896296018268069516100000000000000
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 197
+PUSH S2
+PUSHINT 1600000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 198
+	PUSH S2
+	PUSHINT 1600000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 199
+	PUSHINT 888611052050787263676000000
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 201
+PUSH S2
+PUSHINT 800000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 202
+	PUSH S2
+	PUSHINT 800000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 203
+	PUSHINT 298095798704172827474000
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 205
+PUSH S2
+PUSHINT 400000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 206
+	PUSH S2
+	PUSHINT 400000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 207
+	PUSHINT 5459815003314423907810
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 209
+PUSH S2
+PUSHINT 200000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 210
+	PUSH S2
+	PUSHINT 200000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 211
+	PUSHINT 738905609893065022723
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 213
+PUSH S2
+PUSHINT 100000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 214
+	PUSH S2
+	PUSHINT 100000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 215
+	PUSHINT 271828182845904523536
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 217
+PUSH S2
+PUSHINT 50000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 218
+	PUSH S2
+	PUSHINT 50000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 219
+	PUSHINT 164872127070012814685
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 221
+PUSH S2
+PUSHINT 25000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 222
+	PUSH S2
+	PUSHINT 25000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 223
+	PUSHINT 128402541668774148407
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 231
+PUSHINT 100000000000000000000
+.loc ../contracts/libraries/LogExpMath.tsol, 235
+PUSH3 S3, S0, S3
+.loc ../contracts/libraries/LogExpMath.tsol, 236
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 241
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+RSHIFT 1
+.loc ../contracts/libraries/LogExpMath.tsol, 242
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 244
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 3
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 245
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 247
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+RSHIFT 2
+.loc ../contracts/libraries/LogExpMath.tsol, 248
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 250
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 5
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 251
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 253
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 6
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 254
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 256
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 7
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 257
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 259
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+RSHIFT 3
+.loc ../contracts/libraries/LogExpMath.tsol, 260
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 262
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 9
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 263
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 265
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 10
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 266
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 268
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 11
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 269
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 271
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 12
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 272
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 281
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+MUL
+FITS 256
+PUSHINT 100
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.globl	LogExpMath_no_obj_exp_e46751e3
+.type	LogExpMath_no_obj_exp_e46751e3, @function
+CALL $LogExpMath_no_obj_exp_e46751e3_macro$
+
+.macro LogExpMath_no_obj_exp_e46751e3_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 148
+DUP
+PUSHINT -41000000000000000000
+GEQ
+OVER
+PUSHINT 130000000000000000000
+LEQ
+AND
+THROWIFNOT 1009
+.loc ../contracts/libraries/LogExpMath.tsol, 150
+DUP
+LESSINT 0
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 154
+	PUSHINT 1000000000000000000000000000000000000
+	FITS 256
+	SWAP
+	NEGATE
+	CALL $LogExpMath_no_obj_exp_e46751e3$
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 174
+PUSHINT 0
+.loc ../contracts/libraries/LogExpMath.tsol, 175
+OVER
+PUSHINT 128000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 176
+	DROP
+	PUSHINT 128000000000000000000
+	SUB
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 177
+	PUSHINT 38877084059945950922200000000000000000000000000000000000
+}
+PUSHCONT {
+	OVER
+	PUSHINT 64000000000000000000
+	GEQ
+	PUSHCONT {
+		.loc ../contracts/libraries/LogExpMath.tsol, 179
+		DROP
+		PUSHINT 64000000000000000000
+		SUB
+		FITS 256
+		.loc ../contracts/libraries/LogExpMath.tsol, 180
+		PUSHINT 6235149080811616882910000000
+	}
+	PUSHCONT {
+		.loc ../contracts/libraries/LogExpMath.tsol, 182
+		DROP
+		PUSHINT 1
+	}
+	IFELSE
+}
+IFELSE
+.loc ../contracts/libraries/LogExpMath.tsol, 187
+OVER
+MULCONST 100
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 191
+PUSHINT 100000000000000000000
+.loc ../contracts/libraries/LogExpMath.tsol, 193
+PUSH S2
+PUSHINT 3200000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 194
+	PUSH S2
+	PUSHINT 3200000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 195
+	PUSHINT 7896296018268069516100000000000000
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 197
+PUSH S2
+PUSHINT 1600000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 198
+	PUSH S2
+	PUSHINT 1600000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 199
+	PUSHINT 888611052050787263676000000
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 201
+PUSH S2
+PUSHINT 800000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 202
+	PUSH S2
+	PUSHINT 800000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 203
+	PUSHINT 298095798704172827474000
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 205
+PUSH S2
+PUSHINT 400000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 206
+	PUSH S2
+	PUSHINT 400000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 207
+	PUSHINT 5459815003314423907810
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 209
+PUSH S2
+PUSHINT 200000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 210
+	PUSH S2
+	PUSHINT 200000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 211
+	PUSHINT 738905609893065022723
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 213
+PUSH S2
+PUSHINT 100000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 214
+	PUSH S2
+	PUSHINT 100000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 215
+	PUSHINT 271828182845904523536
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 217
+PUSH S2
+PUSHINT 50000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 218
+	PUSH S2
+	PUSHINT 50000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 219
+	PUSHINT 164872127070012814685
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 221
+PUSH S2
+PUSHINT 25000000000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 222
+	PUSH S2
+	PUSHINT 25000000000000000000
+	SUB
+	FITS 256
+	POP S3
+	.loc ../contracts/libraries/LogExpMath.tsol, 223
+	PUSHINT 128402541668774148407
+	MUL
+	FITS 256
+	PUSHINT 100000000000000000000
+	DIV
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 231
+PUSHINT 100000000000000000000
+.loc ../contracts/libraries/LogExpMath.tsol, 235
+PUSH3 S3, S0, S3
+.loc ../contracts/libraries/LogExpMath.tsol, 236
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 241
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+RSHIFT 1
+.loc ../contracts/libraries/LogExpMath.tsol, 242
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 244
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 3
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 245
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 247
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+RSHIFT 2
+.loc ../contracts/libraries/LogExpMath.tsol, 248
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 250
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 5
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 251
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 253
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 6
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 254
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 256
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 7
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 257
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 259
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+RSHIFT 3
+.loc ../contracts/libraries/LogExpMath.tsol, 260
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 262
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 9
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 263
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 265
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 10
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 266
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 268
+PUSH S4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 11
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 269
+DUP2
+ADD
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 271
+ROLL 4
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+PUSHINT 12
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 272
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 281
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+MUL
+FITS 256
+PUSHINT 100
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.globl	LogExpMath_with_obj__ln_35a4f9ce
+.type	LogExpMath_with_obj__ln_35a4f9ce, @function
+CALL $LogExpMath_with_obj__ln_35a4f9ce_macro$
+
+.macro LogExpMath_with_obj__ln_35a4f9ce_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 328
+DUP
+PUSHINT 1000000000000000000
+LESS
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 332
+	PUSHINT 1000000000000000000000000000000000000
+	FITS 256
+	OVER
+	DIV
+	CALL $LogExpMath_no_obj__ln_35a4f9ce$
+	NEGATE
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 350
+PUSHINT 0
+.loc ../contracts/libraries/LogExpMath.tsol, 351
+OVER
+PUSHINT 38877084059945950922200000000000000000000000000000000000000000000000000000
+FITS 256
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 352
+	OVER
+	PUSHINT 38877084059945950922200000000000000000000000000000000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 353
+	PUSHINT 128000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 356
+OVER
+PUSHINT 6235149080811616882910000000000000000000000000
+FITS 256
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 357
+	OVER
+	PUSHINT 6235149080811616882910000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 358
+	PUSHINT 64000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 362
+MULCONST 100
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 363
+OVER
+MULCONST 100
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 367
+OVER
+PUSHINT 7896296018268069516100000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 368
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 7896296018268069516100000000000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 369
+	PUSHINT 3200000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 372
+OVER
+PUSHINT 888611052050787263676000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 373
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 888611052050787263676000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 374
+	PUSHINT 1600000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 377
+OVER
+PUSHINT 298095798704172827474000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 378
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 298095798704172827474000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 379
+	PUSHINT 800000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 382
+OVER
+PUSHINT 5459815003314423907810
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 383
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 5459815003314423907810
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 384
+	PUSHINT 400000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 387
+OVER
+PUSHINT 738905609893065022723
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 388
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 738905609893065022723
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 389
+	PUSHINT 200000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 392
+OVER
+PUSHINT 271828182845904523536
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 393
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 271828182845904523536
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 394
+	PUSHINT 100000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 397
+OVER
+PUSHINT 164872127070012814685
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 398
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 164872127070012814685
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 399
+	PUSHINT 50000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 402
+OVER
+PUSHINT 128402541668774148407
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 403
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 128402541668774148407
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 404
+	PUSHINT 25000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 407
+OVER
+PUSHINT 113314845306682631683
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 408
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 113314845306682631683
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 409
+	PUSHINT 12500000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 412
+OVER
+PUSHINT 106449445891785942956
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 413
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 106449445891785942956
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 414
+	PUSHINT 6250000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 424
+OVER
+PUSHINT 100000000000000000000
+SUB
+FITS 256
+PUSHINT 100000000000000000000
+MUL
+FITS 256
+PUSH S2
+PUSHINT 100000000000000000000
+ADD
+FITS 256
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 425
+PUSH2 S0, S0
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 428
+SWAP
+.loc ../contracts/libraries/LogExpMath.tsol, 431
+PUSH3 S0, S0, S1
+.loc ../contracts/libraries/LogExpMath.tsol, 434
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 435
+OVER
+PUSHINT 3
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 437
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 438
+OVER
+PUSHINT 5
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 440
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 441
+OVER
+PUSHINT 7
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 443
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 444
+OVER
+PUSHINT 9
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 446
+OVER
+ROLL 3
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 447
+SWAP
+PUSHINT 11
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 452
+MULCONST 2
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 458
+ADD
+FITS 256
+PUSHINT 100
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.globl	LogExpMath_no_obj__ln_35a4f9ce
+.type	LogExpMath_no_obj__ln_35a4f9ce, @function
+CALL $LogExpMath_no_obj__ln_35a4f9ce_macro$
+
+.macro LogExpMath_no_obj__ln_35a4f9ce_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 328
+DUP
+PUSHINT 1000000000000000000
+LESS
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 332
+	PUSHINT 1000000000000000000000000000000000000
+	FITS 256
+	SWAP
+	DIV
+	CALL $LogExpMath_no_obj__ln_35a4f9ce$
+	NEGATE
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IFJMP
+.loc ../contracts/libraries/LogExpMath.tsol, 350
+PUSHINT 0
+.loc ../contracts/libraries/LogExpMath.tsol, 351
+OVER
+PUSHINT 38877084059945950922200000000000000000000000000000000000000000000000000000
+FITS 256
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 352
+	OVER
+	PUSHINT 38877084059945950922200000000000000000000000000000000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 353
+	PUSHINT 128000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 356
+OVER
+PUSHINT 6235149080811616882910000000000000000000000000
+FITS 256
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 357
+	OVER
+	PUSHINT 6235149080811616882910000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 358
+	PUSHINT 64000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 362
+MULCONST 100
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 363
+OVER
+MULCONST 100
+FITS 256
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 367
+OVER
+PUSHINT 7896296018268069516100000000000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 368
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 7896296018268069516100000000000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 369
+	PUSHINT 3200000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 372
+OVER
+PUSHINT 888611052050787263676000000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 373
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 888611052050787263676000000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 374
+	PUSHINT 1600000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 377
+OVER
+PUSHINT 298095798704172827474000
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 378
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 298095798704172827474000
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 379
+	PUSHINT 800000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 382
+OVER
+PUSHINT 5459815003314423907810
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 383
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 5459815003314423907810
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 384
+	PUSHINT 400000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 387
+OVER
+PUSHINT 738905609893065022723
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 388
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 738905609893065022723
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 389
+	PUSHINT 200000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 392
+OVER
+PUSHINT 271828182845904523536
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 393
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 271828182845904523536
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 394
+	PUSHINT 100000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 397
+OVER
+PUSHINT 164872127070012814685
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 398
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 164872127070012814685
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 399
+	PUSHINT 50000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 402
+OVER
+PUSHINT 128402541668774148407
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 403
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 128402541668774148407
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 404
+	PUSHINT 25000000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 407
+OVER
+PUSHINT 113314845306682631683
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 408
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 113314845306682631683
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 409
+	PUSHINT 12500000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 412
+OVER
+PUSHINT 106449445891785942956
+GEQ
+PUSHCONT {
+	.loc ../contracts/libraries/LogExpMath.tsol, 413
+	OVER
+	PUSHINT 100000000000000000000
+	MUL
+	FITS 256
+	PUSHINT 106449445891785942956
+	DIV
+	POP S2
+	.loc ../contracts/libraries/LogExpMath.tsol, 414
+	PUSHINT 6250000000000000000
+	ADD
+	FITS 256
+	.loc ../contracts/libraries/LogExpMath.tsol, 0
+}
+IF
+.loc ../contracts/libraries/LogExpMath.tsol, 424
+OVER
+PUSHINT 100000000000000000000
+SUB
+FITS 256
+PUSHINT 100000000000000000000
+MUL
+FITS 256
+ROT
+PUSHINT 100000000000000000000
+ADD
+FITS 256
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 425
+PUSH2 S0, S0
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 428
+SWAP
+.loc ../contracts/libraries/LogExpMath.tsol, 431
+PUSH3 S0, S0, S1
+.loc ../contracts/libraries/LogExpMath.tsol, 434
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 435
+OVER
+PUSHINT 3
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 437
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 438
+OVER
+PUSHINT 5
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 440
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 441
+OVER
+PUSHINT 7
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 443
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 444
+OVER
+PUSHINT 9
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 446
+OVER
+ROLL 3
+MUL
+FITS 256
+PUSHINT 100000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 447
+SWAP
+PUSHINT 11
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 452
+MULCONST 2
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 458
+ADD
+FITS 256
+PUSHINT 100
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.globl	LogExpMath_with_obj__ln_36_88fb77af
+.type	LogExpMath_with_obj__ln_36_88fb77af, @function
+CALL $LogExpMath_with_obj__ln_36_88fb77af_macro$
+
+.macro LogExpMath_with_obj__ln_36_88fb77af_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 472
+PUSHINT 1000000000000000000
+MUL
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 479
+DUP
+PUSHINT 1000000000000000000000000000000000000
+SUB
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+MUL
+FITS 256
+OVER
+PUSHINT 1000000000000000000000000000000000000
+ADD
+FITS 256
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 480
+PUSH2 S0, S0
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 483
+SWAP
+.loc ../contracts/libraries/LogExpMath.tsol, 486
+PUSH3 S0, S0, S1
+.loc ../contracts/libraries/LogExpMath.tsol, 489
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 490
+OVER
+PUSHINT 3
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 492
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 493
+OVER
+PUSHINT 5
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 495
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 496
+OVER
+PUSHINT 7
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 498
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 499
+OVER
+PUSHINT 9
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 501
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 502
+OVER
+PUSHINT 11
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 504
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 505
+OVER
+PUSHINT 13
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 507
+OVER
+ROLL 3
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 508
+SWAP
+PUSHINT 15
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 513
+MULCONST 2
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.globl	LogExpMath_no_obj__ln_36_88fb77af
+.type	LogExpMath_no_obj__ln_36_88fb77af, @function
+CALL $LogExpMath_no_obj__ln_36_88fb77af_macro$
+
+.macro LogExpMath_no_obj__ln_36_88fb77af_macro
+.loc ../contracts/libraries/LogExpMath.tsol, 472
+PUSHINT 1000000000000000000
+MUL
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 479
+DUP
+PUSHINT 1000000000000000000000000000000000000
+SUB
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+MUL
+FITS 256
+SWAP
+PUSHINT 1000000000000000000000000000000000000
+ADD
+FITS 256
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 480
+PUSH2 S0, S0
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+.loc ../contracts/libraries/LogExpMath.tsol, 483
+SWAP
+.loc ../contracts/libraries/LogExpMath.tsol, 486
+PUSH3 S0, S0, S1
+.loc ../contracts/libraries/LogExpMath.tsol, 489
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 490
+OVER
+PUSHINT 3
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 492
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 493
+OVER
+PUSHINT 5
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 495
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 496
+OVER
+PUSHINT 7
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 498
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 499
+OVER
+PUSHINT 9
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 501
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 502
+OVER
+PUSHINT 11
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 504
+PUSH2 S1, S2
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 505
+OVER
+PUSHINT 13
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 507
+OVER
+ROLL 3
+MUL
+FITS 256
+PUSHINT 1000000000000000000000000000000000000
+DIV
+POP S2
+.loc ../contracts/libraries/LogExpMath.tsol, 508
+SWAP
+PUSHINT 15
+DIV
+ADD
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 513
+MULCONST 2
+FITS 256
+.loc ../contracts/libraries/LogExpMath.tsol, 0
+
+.macro default_tuple_builder_t_address_t_uint8_t_uint64_t_uint128
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+PUSHINT 0
+BLKPUSH 2, 0
+TUPLE 4
+CALLREF {
+	UNTUPLE 4
+	REVERSE 4, 0
+	NEWC
+	STSLICE
+	STU 8
+	STU 64
+	STU 128
+}
+ENDC
+
+.macro public_function_selector
+DUP
+PUSHINT 621205631
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 7542841
+	EQUAL
+	IFJMPREF {
+		CALL $decodeTokenTransfer$
+	}
+	DUP
+	PUSHINT 128091454
+	EQUAL
+	IFJMPREF {
+		CALL $encodeSwapPayload$
+	}
+	DUP
+	PUSHINT 388172858
+	EQUAL
+	IFJMPREF {
+		CALL $upgrade$
+	}
+	DUP
+	PUSHINT 621205631
+	EQUAL
+	IFJMPREF {
+		CALL $rootToWallet$
+	}
+}
+DUP
+PUSHINT 1096041113
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 679436268
+	EQUAL
+	IFJMPREF {
+		CALL $decodeSwapPayload$
+	}
+	DUP
+	PUSHINT 837646730
+	EQUAL
+	IFJMPREF {
+		CALL $weightedPools$
+	}
+	DUP
+	PUSHINT 870240729
+	EQUAL
+	IFJMPREF {
+		CALL $transferOwnership$
+	}
+	DUP
+	PUSHINT 1096041113
+	EQUAL
+	IFJMPREF {
+		CALL $calcExpectedSwap$
+	}
+}
+DUP
+PUSHINT 1524849411
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1196840156
+	EQUAL
+	IFJMPREF {
+		CALL $constructor$
+	}
+	DUP
+	PUSHINT 1354746527
+	EQUAL
+	IFJMPREF {
+		CALL $receiveTokenWalletAddress$
+	}
+	DUP
+	PUSHINT 1509926898
+	EQUAL
+	IFJMPREF {
+		CALL $encodeJoinPayload$
+	}
+	DUP
+	PUSHINT 1524849411
+	EQUAL
+	IFJMPREF {
+		CALL $createPool$
+	}
+}
+DUP
+PUSHINT 1893244873
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1564262561
+	EQUAL
+	IFJMPREF {
+		CALL $getSwapFeePercentage$
+	}
+	DUP
+	PUSHINT 1633152516
+	EQUAL
+	IFJMPREF {
+		CALL $initializePool$
+	}
+	DUP
+	PUSHINT 1833406480
+	EQUAL
+	IFJMPREF {
+		CALL $decodeJoinPayload$
+	}
+	DUP
+	PUSHINT 1893244873
+	EQUAL
+	IFJMPREF {
+		CALL $onAcceptTokensTransfer$
+	}
+}
+

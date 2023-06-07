@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+import "../interfaces/IDeltexCluster.tsol";
+
+
+abstract contract DeltexClusterStorage is IDeltexCluster {
+    uint32 static deploy_nonce;
+
+    TvmCell static tokenRootCode;
+    TvmCell static tokenWalletCode;
+    uint16 poolsCount = 0;
+    address owner;
+
+    mapping (uint16 => WeightedPool) public weightedPools;
+    mapping (address => address) public rootToWallet;
+
+    uint16 constant MAX_POOLS = 500;
+    uint256 constant DEFAULT_MINIMUM_DPT = 1e6;
+    uint128 constant CONTRACT_MIN_BALANCE = 1 ever;
+}

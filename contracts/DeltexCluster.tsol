@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+import "./base/DeltexClusterBase.tsol";
+
+contract DeltexCluster is DeltexClusterBase {
+    constructor(address _owner) public {
+        require (tvm.pubkey() == msg.pubkey(), 101);
+
+        tvm.accept();
+        owner = _owner;
+    }
+
+    function upgrade(TvmCell new_code) external onlyOwner {
+        TvmCell data = abi.encode(
+            deploy_nonce,
+            tokenRootCode,
+            tokenWalletCode,
+            poolsCount,
+            owner,
+            weightedPools,
+            rootToWallet
+        );
+        // set code after complete this method
+        tvm.setcode(new_code);
+
+        // run onCodeUpgrade from new new_code
+        tvm.setCurrentCode(new_code);
+        onCodeUpgrade(data);
+    }
+
+    function onCodeUpgrade(TvmCell data) private {}
+}

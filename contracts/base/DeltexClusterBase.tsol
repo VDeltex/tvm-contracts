@@ -1,0 +1,331 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+
+import "../libraries/FixedPoint.tsol";
+import "../libraries/WeightedMath.tsol";
+import "../libraries/Gas.tsol";
+import "./DeltexClusterHelpers.tsol";
+import "../libraries/Callback.tsol";
+import "broxus-token-contracts/contracts/TokenRoot.tsol";
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
+import "locklift/src/console.tsol";
+
+abstract contract DeltexClusterBase is DeltexClusterHelpers {
+    using FixedPoint for uint256;
+
+    function transferOwnership(address new_owner, Callback.CallMeta meta) external onlyOwner reserve {
+        owner = new_owner;
+        emit NewOwner(meta.call_id, new_owner);
+    }
+
+    function encodeSwapPayload(
+        uint16 poolId,
+        uint8 inTokenId,
+        uint8 outTokenId,
+        uint32 call_id
+    ) external pure returns (TvmCell) {
+        return abi.encode(OperationType.Swap, call_id, abi.encode(poolId, inTokenId, outTokenId));
+    }
+
+    function encodeJoinPayload(uint16 poolId, uint8 inTokenId, uint32 call_id) external pure returns (TvmCell) {
+        return abi.encode(OperationType.Join, call_id, abi.encode(poolId, inTokenId));
+    }
+
+    function decodeTokenTransfer(TvmCell payload) public pure returns (OperationType _type, uint32 call_id, TvmCell action_payload) {
+        return abi.decode(payload, (OperationType, uint32, TvmCell));
+    }
+
+    function decodeSwapPayload(TvmCell payload) public pure returns (uint16 poolId, uint8 inTokenId, uint8 outTokenId) {
+        return abi.decode(payload, (uint16, uint8, uint8));
+    }
+
+    function decodeJoinPayload(TvmCell payload) public pure returns (uint16 poolId, uint8 inTokenId) {
+        return abi.decode(payload, (uint16, uint8));
+    }
+
+    function onAcceptTokensTransfer(
+        address tokenRoot,
+        uint128 amount,
+        address sender,
+        address,
+        address remainingGasTo,
+        TvmCell payload
+    ) external reserve override {
+        require (rootToWallet[tokenRoot] == msg.sender, Errors.NOT_TOKEN_ROOT);
+        require (msg.value >= Gas.MIN_MSG_VALUE, Errors.LOW_MSG_VALUE);
+
+        if (sender == owner) return; // just top up balance
+
+        (OperationType _type, uint32 call_id, TvmCell action_payload) = decodeTokenTransfer(payload);
+        // SWAP
+        if (_type == OperationType.Swap) {
+            (uint16 poolId, uint8 inTokenId, uint8 outTokenId) = decodeSwapPayload(action_payload);
+            (uint256 amountOut, address tokenOut) = onSwap(amount, tokenRoot, SwapRequest(poolId, inTokenId, outTokenId, sender));
+            TvmCell empty;
+            emit Swap(call_id, poolId, amount, tokenRoot, amountOut, tokenOut);
+            ITokenWallet(rootToWallet[tokenOut]).transfer{value: 0, flag: MsgFlag.ALL_NOT_RESERVED}(
+                uint128(amountOut),
+                sender,
+                0.1 ever,
+                remainingGasTo,
+                false,
+                empty
+            );
+        // JOIN
+        } else if (_type == OperationType.Join) {
+            (uint16 poolId, uint8 inTokenId) = decodeJoinPayload(action_payload);
+            uint256 dptMinted = onJoinPool(amount, tokenRoot, sender, poolId, inTokenId);
+            emit Join(call_id, poolId, amount, tokenRoot, dptMinted);
+            remainingGasTo.transfer(0, false, MsgFlag.ALL_NOT_RESERVED);
+            // WTF
+        } else {
+            revert(Errors.BAD_OPERATION_TYPE);
+        }
+    }
+
+    function calcExpectedSwap(uint16 poolId, uint8 inTokenId, uint8 outTokenId, uint256 amountIn) public view returns (uint256) {
+        WeightedPool pool = weightedPools[poolId];
+
+        TokenData token1 = pool.tokens[inTokenId];
+        TokenData token2 = pool.tokens[outTokenId];
+
+        uint256 amountInWithFee = _subtractSwapFeeAmount(amountIn);
+        uint256 amountOut = WeightedMath._calcOutGivenIn(
+            _upscale(token1.balance, token1.scalingFactor),
+            token1.normalizedWeight,
+            _upscale(token2.balance, token2.scalingFactor),
+            token2.normalizedWeight,
+            _upscale(amountInWithFee, token1.scalingFactor)
+        );
+
+        return _downscaleDown(amountOut, token2.scalingFactor);
+    }
+
+    function onSwap(uint256 amountIn, address tokenIn, SwapRequest swap) internal returns (uint256 amountOut, address tokenOut) {
+        WeightedPool pool = weightedPools[swap.poolId];
+
+        require (pool.tokens.length > 1, Errors.BAD_SWAP_SCHEME);
+        require (swap.inTokenId < pool.tokens.length && swap.outTokenId < pool.tokens.length, Errors.BAD_SWAP_SCHEME);
+
+        TokenData token1 = pool.tokens[swap.inTokenId];
+        TokenData token2 = pool.tokens[swap.outTokenId];
+
+        require (tokenIn == token1.token, Errors.BAD_SWAP_SCHEME);
+
+        uint256 amountInWithFee = _subtractSwapFeeAmount(amountIn);
+        amountOut = WeightedMath._calcOutGivenIn(
+            _upscale(token1.balance, token1.scalingFactor),
+            token1.normalizedWeight,
+            _upscale(token2.balance, token2.scalingFactor),
+            token2.normalizedWeight,
+            _upscale(amountInWithFee, token1.scalingFactor)
+        );
+
+        amountOut = _downscaleDown(amountOut, token2.scalingFactor);
+        token1.balance += uint128(amountIn);
+        token2.balance -= uint128(amountOut);
+
+        pool.tokens[swap.inTokenId] = token1;
+        pool.tokens[swap.outTokenId] = token2;
+        weightedPools[swap.poolId] = pool;
+
+        return (amountOut, token2.token);
+    }
+
+    /**
+     * @notice Vault hook for adding liquidity to a pool (including the first time, "initializing" the pool).
+     * @dev This function can only be called from the Vault, from `joinPool`.
+     */
+    function onJoinPool(
+        uint256 amount,
+        address tokenIn,
+        address recipient,
+        uint16 poolId,
+        uint8 inTokenId
+    ) internal returns (uint256){
+        WeightedPool pool = weightedPools[poolId];
+        require (pool.tokens[inTokenId].token == tokenIn, Errors.BAD_SWAP_SCHEME);
+
+        uint256[] amountsIn = new uint256[](pool.tokens.length);
+        amountsIn[inTokenId] = amount;
+
+        (
+            uint256[] balances,
+            uint64[] normalizedWeights,
+            uint8[] scalingFactors
+        ) = _getFlatTokenData(pool.tokens);
+
+        uint256 dptAmountOut;
+        if (pool.dptTotalSupply == 0) {
+            dptAmountOut = _onInitializePool(
+                amountsIn,
+                scalingFactors,
+                normalizedWeights
+            );
+
+            // On initialization, we lock _getMinimumBpt() by minting it for the zero address. This DPT acts as a
+            // minimum as it will never be burned, which reduces potential issues with rounding, and also prevents the
+            // Pool from ever being fully drained.
+            require (dptAmountOut >= _getMinimumBpt(), Errors.MINIMUM_DPT);
+            _mintPoolTokens(address(0), pool.dpt, _getMinimumBpt());
+            _mintPoolTokens(recipient, pool.dpt, dptAmountOut - _getMinimumBpt());
+        } else {
+            dptAmountOut = _joinExactTokensInForDPTOut(
+                amountsIn,
+                balances,
+                normalizedWeights,
+                scalingFactors,
+                pool.dptTotalSupply
+            );
+            // Note we no longer use `balances` after calling `_onJoinPool`, which may mutate it.
+            _mintPoolTokens(recipient, pool.dpt, dptAmountOut);
+        }
+
+        pool.dptTotalSupply += dptAmountOut;
+        for (uint i = 0; i < pool.tokens.length; i++) {
+            pool.tokens[i].balance += uint128(amountsIn[i]);
+        }
+
+        weightedPools[poolId] = pool;
+        return dptAmountOut;
+    }
+
+    function _joinExactTokensInForDPTOut(
+        uint256[] amountsIn,
+        uint256[] balances,
+        uint64[] normalizedWeights,
+        uint8[] scalingFactors,
+        uint256 totalSupply
+    ) private pure returns (uint256) {
+        amountsIn = _upscaleArray(amountsIn, scalingFactors);
+        uint256 dptAmountOut = WeightedMath._calcDptOutGivenExactTokensIn(
+            balances,
+            normalizedWeights,
+            amountsIn,
+            totalSupply,
+            getSwapFeePercentage()
+        );
+        return dptAmountOut;
+    }
+
+    function _onInitializePool(
+        uint256[] amountsIn,
+        uint8[] scalingFactors,
+        uint64[] normalizedWeights
+    ) internal pure returns (uint256) {
+        amountsIn = _upscaleArray(amountsIn, scalingFactors);
+        uint256 invariantAfterJoin = WeightedMath._calculateInvariant(normalizedWeights, amountsIn);
+        // Set the initial DPT to the value of the invariant times the number of tokens. This makes DPT supply more
+        // consistent in Pools with similar compositions but different number of tokens.
+        uint256 dptAmountOut = invariantAfterJoin * amountsIn.length;
+        return dptAmountOut;
+    }
+
+    function _mintPoolTokens(address user, address token, uint256 amount) internal pure {
+        TvmCell empty;
+        ITokenRoot(token).mint{value: 0.5 ever}(uint128(amount), user, 0.1 ever, user, false, empty);
+    }
+
+    function receiveTokenWalletAddress(address wallet) external override {
+        if (rootToWallet.exists(msg.sender)) {
+            rootToWallet[msg.sender] = wallet;
+        }
+    }
+
+    // Add liquidity without providing real tokens
+    function initializePool(uint16 poolId, uint256[] amountsIn) public onlyOwner {
+        WeightedPool pool = weightedPools[poolId];
+
+        (
+            ,
+            uint64[] normalizedWeights,
+            uint8[] scalingFactors
+        ) = _getFlatTokenData(pool.tokens);
+
+
+        uint256 dptAmountOut = _onInitializePool(
+            amountsIn,
+            scalingFactors,
+            normalizedWeights
+        );
+
+        pool.dptTotalSupply += dptAmountOut;
+        for (uint i = 0; i < pool.tokens.length; i++) {
+            pool.tokens[i].balance += uint128(amountsIn[i]);
+        }
+
+        weightedPools[poolId] = pool;
+    }
+
+    function createPool(
+        address[] tokens,
+        uint64[] normalizedWeights,
+        uint8[] scalingFactors,
+        Callback.CallMeta meta
+    ) external reserve onlyOwner {
+        require (msg.value >= tokens.length * Gas.TOKEN_WALLET_DEPLOY_VALUE + 1 ever, Errors.LOW_MSG_VALUE);
+        require (poolsCount < MAX_POOLS, Errors.MAX_POOLS_REACHED);
+
+        uint64 totalWeight = 0;
+        for (uint i = 0; i < normalizedWeights.length; i++) {
+            totalWeight += normalizedWeights[i];
+        }
+
+//        console.log(format("{}", totalWeight));
+//        require (totalWeight == FixedPoint.ONE, Errors.BAD_INPUT);
+
+        WeightedPool new_pool = WeightedPool({
+            tokens: new TokenData[](tokens.length),
+            dpt: _createDptToken(poolsCount),
+            dptTotalSupply: 0
+        });
+        for (uint i = 0; i < tokens.length; i++) {
+            new_pool.tokens[i] = TokenData({
+                token: tokens[i],
+                balance: 0,
+                normalizedWeight: normalizedWeights[i],
+                scalingFactor: scalingFactors[i]
+            });
+
+            rootToWallet[tokens[i]] = address(0);
+            ITokenRoot(tokens[i]).deployWallet{value: Gas.TOKEN_WALLET_DEPLOY_VALUE, callback: IDeltexCluster.receiveTokenWalletAddress }(
+                address(this), // owner
+                Gas.TOKEN_WALLET_DEPLOY_VALUE / 2 // deploy grams
+            );
+        }
+        weightedPools[poolsCount] = new_pool;
+        poolsCount++;
+
+        emit NewPool(meta.call_id, new_pool);
+    }
+
+    function _createDptToken(uint16 pool_count) internal view returns (address) {
+        TvmCell state_init = tvm.buildStateInit({
+            contr: TokenRoot,
+            varInit: {
+                deployer_: address(this),
+                randomNonce_: pool_count,
+                name_: format("Deltex Pool Token #{}", pool_count),
+                symbol_: format("DPT#{}", pool_count),
+                decimals_: 18,
+                rootOwner_: address(this),
+                walletCode_: tokenWalletCode
+            },
+            pubkey: 0,
+            code: tokenRootCode
+        });
+        return new TokenRoot{
+            stateInit: state_init,
+            value: 1.5 ever
+        }(
+            address(0),
+            0,
+            0,
+            false,
+            false,
+            false,
+            msg.sender
+        );
+    }
+}

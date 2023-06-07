@@ -1,0 +1,40 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+import "../libraries/WeightedMath.tsol";
+import "broxus-token-contracts/contracts/interfaces/IAcceptTokensTransferCallback.tsol";
+
+
+interface IDeltexCluster is IAcceptTokensTransferCallback {
+    struct WeightedPool {
+        TokenData[] tokens;
+        // pool token address
+        address dpt; // deltex pool token
+        uint256 dptTotalSupply;
+    }
+
+    struct TokenData {
+        address token;
+        // decimal difference between token decimals and 18 (18+ decimals tokens not supported)
+        uint8 scalingFactor;
+        // all weights sum is eq to 1 (10**18)
+        uint64 normalizedWeight;
+        // tokens balances
+        uint128 balance;
+    }
+
+    struct SwapRequest {
+        uint16 poolId;
+        uint8 inTokenId;
+        uint8 outTokenId;
+        address recipient;
+    }
+
+    enum OperationType { Swap, Join }
+    event Swap(uint32 call_id, uint16 poolId, uint256 amount, address tokenRoot, uint256 amountOut, address tokenOut);
+    event Join(uint32 call_id, uint16 poolId, uint256 amount, address tokenRoot, uint256 dptMinted);
+    event NewPool(uint32 call_id, WeightedPool new_pool);
+    event NewOwner(uint32 call_id, address new_owner);
+
+    function receiveTokenWalletAddress(address wallet) external;
+}

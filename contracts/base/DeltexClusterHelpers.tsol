@@ -1,0 +1,93 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+import "./DeltexClusterStorage.tsol";
+import "../libraries/FixedPoint.tsol";
+
+abstract contract DeltexClusterHelpers is DeltexClusterStorage {
+    using FixedPoint for uint256;
+
+    modifier onlyOwner() {
+        require(owner == msg.sender, Errors.NOT_OWNER);
+        _;
+    }
+
+    function _reserve() internal pure returns (uint128) {
+        return math.max(address(this).balance - msg.value, CONTRACT_MIN_BALANCE);
+    }
+
+
+    modifier reserve() {
+        tvm.rawReserve(_reserve(), 0);
+        _;
+    }
+
+    /*
+    * @dev Subtracts swap fee amount from `amount`, returning a lower value. Works with raw unscaled amount
+    */
+    function _subtractSwapFeeAmount(uint256 amount) internal pure returns (uint256) {
+        // This returns amount - fee amount, so we round up (favoring a higher fee amount).
+        uint256 feeAmount = amount.mulUp(getSwapFeePercentage());
+        return amount.sub(feeAmount);
+    }
+
+    function _getMinimumBpt() internal pure returns (uint256) {
+        return DEFAULT_MINIMUM_DPT;
+    }
+
+    /**
+     * @notice Return the current value of the swap fee percentage.
+     * @dev This is stored in `_miscData`.
+     */
+    function getSwapFeePercentage() public pure returns (uint256) {
+        return FixedPoint.ONE * 3 / 1000; // 0.3%
+    }
+
+    function _getFlatTokenData(TokenData[] data) internal pure returns (uint256[] balances, uint64[] weights, uint8[] scalingFactors) {
+        for (uint i = 0; i < data.length; i++) {
+            balances.push(data[i].balance);
+            weights.push(data[i].normalizedWeight);
+            scalingFactors.push(data[i].scalingFactor);
+        }
+    }
+
+    /**
+     * @dev Applies `scalingFactor` to `amount`, resulting in a larger or equal value depending on whether it needed
+     * scaling or not.
+     */
+    function _upscale(uint256 amount, uint256 scalingFactor) internal pure returns (uint256) {
+        // Upscale rounding wouldn't necessarily always go in the same direction: in a swap for example the balance of
+        // token in should be rounded up, and that of token out rounded down. This is the only place where we round in
+        // the same direction for all amounts, as the impact of this rounding is expected to be minimal (and there's no
+        // rounding error unless `_scalingFactor()` is overriden).
+        return amount * 10**scalingFactor;
+    }
+
+    /**
+     * @dev Reverses the `scalingFactor` applied to `amount`, resulting in a smaller or equal value depending on
+     * whether it needed scaling or not. The result is rounded down.
+     */
+    function _downscaleDown(uint256 amount, uint256 scalingFactor) internal pure returns (uint256) {
+        return amount / (10**scalingFactor);
+    }
+
+    /**
+     * @dev Same as `_upscale`, but for an entire array. This function does not return anything, but instead *mutates*
+     * the `amounts` array.
+     */
+    function _upscaleArray(uint256[] amounts, uint8[] scalingFactors) internal pure returns (uint256[] scaled) {
+        for (uint256 i = 0; i < amounts.length; ++i) {
+            scaled.push(_upscale(amounts[i], scalingFactors[i]));
+        }
+    }
+
+    /**
+     * @dev Same as `_downscaleUp`, but for an entire array. This function does not return anything, but instead
+     * *mutates* the `amounts` array.
+     */
+    function _downscaleUpArray(uint256[] amounts, uint256[] scalingFactors) internal pure returns (uint256[] scaled) {
+        for (uint256 i = 0; i < amounts.length; ++i) {
+            scaled.push(FixedPoint.divUp(amounts[i], scalingFactors[i]));
+        }
+    }
+}
