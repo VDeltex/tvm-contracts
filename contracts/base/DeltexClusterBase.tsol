@@ -199,6 +199,7 @@ abstract contract DeltexClusterBase is DeltexClusterHelpers {
         uint256 totalSupply
     ) private pure returns (uint256) {
         amountsIn = _upscaleArray(amountsIn, scalingFactors);
+        balances = _upscaleArray(balances, scalingFactors);
         uint256 dptAmountOut = WeightedMath._calcDptOutGivenExactTokensIn(
             balances,
             normalizedWeights,

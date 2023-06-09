@@ -1322,13 +1322,19 @@ CALL $_joinExactTokensInForDPTOut_edf84657_internal_macro$
 
 .macro _joinExactTokensInForDPTOut_edf84657_internal_macro
 .loc ../contracts/base/DeltexClusterBase.tsol, 201
-PUSH S4
+PUSH2 S4, S1
+CALLREF {
+	CALL $_upscaleArray_b1f0fdf6_internal_macro$
+}
+POP S5
+.loc ../contracts/base/DeltexClusterBase.tsol, 202
+PUSH S3
 ROT
 CALLREF {
 	CALL $_upscaleArray_b1f0fdf6_internal_macro$
 }
-POP S4
-.loc ../contracts/base/DeltexClusterBase.tsol, 202
+POP S3
+.loc ../contracts/base/DeltexClusterBase.tsol, 203
 ROLL 3
 SWAP
 CALLREF {
@@ -1344,19 +1350,19 @@ CALLREF {
 CALL $_onInitializePool_bd35eb5b_internal_macro$
 
 .macro _onInitializePool_bd35eb5b_internal_macro
-.loc ../contracts/base/DeltexClusterBase.tsol, 217
+.loc ../contracts/base/DeltexClusterBase.tsol, 218
 PUSH S2
 ROT
 CALLREF {
 	CALL $_upscaleArray_b1f0fdf6_internal_macro$
 }
 POP S2
-.loc ../contracts/base/DeltexClusterBase.tsol, 218
+.loc ../contracts/base/DeltexClusterBase.tsol, 219
 OVER
 CALLREF {
 	CALL $WeightedMath_no_obj__calculateInvariant_350e278a_macro$
 }
-.loc ../contracts/base/DeltexClusterBase.tsol, 221
+.loc ../contracts/base/DeltexClusterBase.tsol, 222
 SWAP
 FIRST
 MUL
@@ -1367,10 +1373,10 @@ MUL
 CALL $_mintPoolTokens_e1a322f8_internal_macro$
 
 .macro _mintPoolTokens_e1a322f8_internal_macro
-.loc ../contracts/base/DeltexClusterBase.tsol, 226
+.loc ../contracts/base/DeltexClusterBase.tsol, 227
 PUSHREF {
 }
-.loc ../contracts/base/DeltexClusterBase.tsol, 227
+.loc ../contracts/base/DeltexClusterBase.tsol, 228
 FALSE
 PUSH S4
 PUSHINT 100000000
@@ -1410,7 +1416,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/base/DeltexClusterBase.tsol, 230
+.loc ../contracts/base/DeltexClusterBase.tsol, 231
 OVER
 PUSHCONT {
 	LDREF
@@ -1431,7 +1437,7 @@ CALLREF {
 THROW 0
 
 .macro receiveTokenWalletAddress_9b3a57ad_internal_macro
-.loc ../contracts/base/DeltexClusterBase.tsol, 231
+.loc ../contracts/base/DeltexClusterBase.tsol, 232
 GETGLOB 9
 GETGLOB 16
 PUSHINT 267
@@ -1439,7 +1445,7 @@ DICTGET
 NULLSWAPIFNOT
 NIP
 PUSHCONT {
-	.loc ../contracts/base/DeltexClusterBase.tsol, 232
+	.loc ../contracts/base/DeltexClusterBase.tsol, 233
 	DUP
 	GETGLOB 9
 	GETGLOB 16
@@ -1461,7 +1467,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/base/DeltexClusterBase.tsol, 237
+.loc ../contracts/base/DeltexClusterBase.tsol, 238
 LDU 16
 LDU 32
 LDDICT
@@ -1489,7 +1495,7 @@ GETGLOB 14
 GETGLOB 9
 SDEQ
 THROWIFNOT 1100
-.loc ../contracts/base/DeltexClusterBase.tsol, 238
+.loc ../contracts/base/DeltexClusterBase.tsol, 239
 OVER
 GETGLOB 15
 PUSHINT 16
@@ -1516,26 +1522,26 @@ IFREFELSEREF
 	PUSHINT 0
 	TRIPLE
 }
-.loc ../contracts/base/DeltexClusterBase.tsol, 240
+.loc ../contracts/base/DeltexClusterBase.tsol, 241
 DUP
 FIRST
 CALLREF {
 	CALL $_getFlatTokenData_66f4282c_internal_macro$
 }
 BLKDROP2 1, 2
-.loc ../contracts/base/DeltexClusterBase.tsol, 247
+.loc ../contracts/base/DeltexClusterBase.tsol, 248
 PUSH S3
 XCHG S2
 CALLREF {
 	CALL $_onInitializePool_bd35eb5b_internal_macro$
 }
-.loc ../contracts/base/DeltexClusterBase.tsol, 253
+.loc ../contracts/base/DeltexClusterBase.tsol, 254
 XCPU S1, S0
 THIRD
 ROT
 ADD
 SETINDEX 2
-.loc ../contracts/base/DeltexClusterBase.tsol, 254
+.loc ../contracts/base/DeltexClusterBase.tsol, 255
 PUSHINT 0
 PUSHCONT {
 	PUSH2 S0, S1
@@ -1543,7 +1549,7 @@ PUSHCONT {
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/base/DeltexClusterBase.tsol, 255
+	.loc ../contracts/base/DeltexClusterBase.tsol, 256
 	PUSH2 S0, S2
 	SECOND
 	PUSHINT 32
@@ -1591,13 +1597,13 @@ PUSHCONT {
 	PAIR
 	SETINDEX 0
 	POP S2
-	.loc ../contracts/base/DeltexClusterBase.tsol, 254
+	.loc ../contracts/base/DeltexClusterBase.tsol, 255
 	INC
 	.loc ../contracts/base/DeltexClusterBase.tsol, 0
 }
 WHILE
 DROP
-.loc ../contracts/base/DeltexClusterBase.tsol, 258
+.loc ../contracts/base/DeltexClusterBase.tsol, 259
 GETGLOB 15
 SWAP
 XCHG S2, S3
@@ -1629,7 +1635,7 @@ ISNULL
 IFREF {
 	CALL $c4_to_c7$
 }
-.loc ../contracts/base/DeltexClusterBase.tsol, 261
+.loc ../contracts/base/DeltexClusterBase.tsol, 262
 OVER
 PUSHCONT {
 	LDU 32
@@ -1698,7 +1704,7 @@ GETGLOB 14
 GETGLOB 9
 SDEQ
 THROWIFNOT 1100
-.loc ../contracts/base/DeltexClusterBase.tsol, 267
+.loc ../contracts/base/DeltexClusterBase.tsol, 268
 DEPTH
 ADDCONST -2
 PICK
@@ -1710,22 +1716,22 @@ PUSHINT 1000000000
 ADD
 GEQ
 THROWIFNOT 1104
-.loc ../contracts/base/DeltexClusterBase.tsol, 268
+.loc ../contracts/base/DeltexClusterBase.tsol, 269
 GETGLOB 13
 PUSHINT 500
 LESS
 THROWIFNOT 1111
-.loc ../contracts/base/DeltexClusterBase.tsol, 270
+.loc ../contracts/base/DeltexClusterBase.tsol, 271
 PUSHINT 0
 DUP
-.loc ../contracts/base/DeltexClusterBase.tsol, 271
+.loc ../contracts/base/DeltexClusterBase.tsol, 272
 PUSHCONT {
 	PUSH2 S0, S4
 	FIRST
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/base/DeltexClusterBase.tsol, 272
+	.loc ../contracts/base/DeltexClusterBase.tsol, 273
 	PUSH2 S0, S4
 	SECOND
 	PUSHINT 32
@@ -1736,13 +1742,13 @@ PUSHCONT {
 	ADD
 	UFITS 64
 	POP S2
-	.loc ../contracts/base/DeltexClusterBase.tsol, 271
+	.loc ../contracts/base/DeltexClusterBase.tsol, 272
 	INC
 	.loc ../contracts/base/DeltexClusterBase.tsol, 0
 }
 WHILE
 DROP2
-.loc ../contracts/base/DeltexClusterBase.tsol, 278
+.loc ../contracts/base/DeltexClusterBase.tsol, 279
 PUSH S3
 FIRST
 PUSHREFSLICE
@@ -1767,7 +1773,7 @@ CALLREF {
 }
 PUSHINT 0
 TRIPLE
-.loc ../contracts/base/DeltexClusterBase.tsol, 283
+.loc ../contracts/base/DeltexClusterBase.tsol, 284
 PUSHINT 0
 PUSHCONT {
 	PUSH2 S0, S5
@@ -1775,7 +1781,7 @@ PUSHCONT {
 	LESS
 }
 PUSHCONT {
-	.loc ../contracts/base/DeltexClusterBase.tsol, 284
+	.loc ../contracts/base/DeltexClusterBase.tsol, 285
 	PUSH2 S0, S5
 	SECOND
 	PUSHINT 32
@@ -1818,7 +1824,7 @@ PUSHCONT {
 	PAIR
 	SETINDEX 0
 	POP S2
-	.loc ../contracts/base/DeltexClusterBase.tsol, 291
+	.loc ../contracts/base/DeltexClusterBase.tsol, 292
 	GETGLOB 16
 	PUSH2 S1, S6
 	SECOND
@@ -1833,7 +1839,7 @@ PUSHCONT {
 	PUSHINT 267
 	DICTSET
 	SETGLOB 16
-	.loc ../contracts/base/DeltexClusterBase.tsol, 292
+	.loc ../contracts/base/DeltexClusterBase.tsol, 293
 	PUSHINT 250000000
 	MYADDR
 	PUSH2 S2, S7
@@ -1856,13 +1862,13 @@ PUSHCONT {
 	ENDC
 	PUSHINT 0
 	SENDRAWMSG
-	.loc ../contracts/base/DeltexClusterBase.tsol, 283
+	.loc ../contracts/base/DeltexClusterBase.tsol, 284
 	INC
 	.loc ../contracts/base/DeltexClusterBase.tsol, 0
 }
 WHILE
 DROP
-.loc ../contracts/base/DeltexClusterBase.tsol, 297
+.loc ../contracts/base/DeltexClusterBase.tsol, 298
 GETGLOB 13
 GETGLOB 15
 PUSH S2
@@ -1882,12 +1888,12 @@ ROTREV
 PUSHINT 16
 DICTUSETB
 SETGLOB 15
-.loc ../contracts/base/DeltexClusterBase.tsol, 298
+.loc ../contracts/base/DeltexClusterBase.tsol, 299
 GETGLOB 13
 INC
 UFITS 16
 SETGLOB 13
-.loc ../contracts/base/DeltexClusterBase.tsol, 300
+.loc ../contracts/base/DeltexClusterBase.tsol, 301
 SWAP
 FIRST
 PUSHSLICE xc0000000000000000000000001
@@ -1919,7 +1925,7 @@ BLKDROP 3
 CALL $_createDptToken_44a79cfa_internal_macro$
 
 .macro _createDptToken_44a79cfa_internal_macro
-.loc ../contracts/base/DeltexClusterBase.tsol, 304
+.loc ../contracts/base/DeltexClusterBase.tsol, 305
 PUSHINT 0
 NEWC
 STU 256
@@ -2003,7 +2009,7 @@ STOPTREF
 STOPTREF
 STZERO
 ENDC
-.loc ../contracts/base/DeltexClusterBase.tsol, 318
+.loc ../contracts/base/DeltexClusterBase.tsol, 319
 GETGLOB 9
 FALSE
 BLKPUSH 4, 0
